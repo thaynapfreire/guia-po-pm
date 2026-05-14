@@ -154,10 +154,10 @@
     color: #fff; border-left-color: #FDFBF7;
     background: rgba(255,255,255,0.08); padding-left: 20px;
   }
-  .nav-link.book-2 { color: rgba(0,77,77,0.1); }
+  .nav-link.book-2 { color: rgba(255,255,255,0.6); }
   .nav-link.book-2:hover, .nav-link.book-2.active {
-    color: #FDFBF7; border-left-color: #FDFBF7;
-    background: rgba(0,77,77,0.1);
+    color: #fff; border-left-color: #fff;
+    background: rgba(255,255,255,0.08);
   }
   .nav-link.special { color: #FDFBF7; font-weight: 600; }
   .nav-link.special:hover, .nav-link.special.active {
@@ -190,8 +190,8 @@
     transition: transform 0.22s ease; flex-shrink: 0;
   }
   .nav-book-btn.open .acc-arrow { transform: rotate(180deg); }
-  .nav-acc-body { overflow: hidden; max-height: 0; transition: max-height 0.28s ease; }
-  .nav-acc-body.open { max-height: 600px; }
+  .nav-acc-body { overflow: hidden; max-height: 0; transition: max-height 0.35s ease; }
+  .nav-acc-body.open { max-height: 800px; }
   .nav-acc-body .nav-link { padding-left: 34px; font-size: 0.76rem; border-left-width: 2px; }
   .nav-acc-body .nav-link:hover,
   .nav-acc-body .nav-link.active { padding-left: 38px; }
@@ -695,6 +695,187 @@
   @keyframes blink { 50% { opacity: 0; } }
 
   /* ════════════════════════════════════════════
+     MANIFESTO ÁGIL
+  ════════════════════════════════════════════ */
+  /* 4 Valores — lado a lado com hierarquia clara */
+  .valor-card {
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+    overflow: hidden;
+    box-shadow: var(--sh-soft);
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s, transform 0.18s;
+  }
+  .valor-card:hover { box-shadow: var(--sh-floating); transform: translateY(-2px); }
+
+  .valor-vs {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    min-height: 110px;
+  }
+
+  .valor-lado {
+    padding: var(--s2) var(--s2);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    justify-content: center;
+  }
+  .valor-lado.left  { background: var(--surface-raised); }
+  .valor-lado.right { background: var(--surface-sunken); }
+
+  .valor-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .valor-label.primary-lbl  { color: var(--primary); }
+  .valor-label.secondary-lbl{ color: var(--gray-300); }
+
+  .valor-text {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .valor-text.primary-txt   { font-size: 1.05rem; color: var(--primary); }
+  .valor-text.secondary-txt {
+    font-size: 0.88rem; color: var(--gray-300);
+    text-decoration: line-through;
+    text-decoration-color: var(--border);
+  }
+
+  .valor-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--border);
+    width: 1px;
+    position: relative;
+  }
+  .valor-divider span {
+    position: absolute;
+    background: var(--border);
+    color: var(--gray-500);
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    padding: 6px 3px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .valor-po-tip {
+    background: var(--primary-light);
+    border-top: 1px solid rgba(0,77,77,0.12);
+    padding: 10px var(--s2);
+    font-size: var(--text-body-sm);
+    color: var(--primary);
+    line-height: 1.55;
+  }
+  .valor-po-tip strong { font-weight: 700; }
+
+  /* 12 Princípios */
+  .principios-grupo {
+    margin-bottom: var(--s3);
+  }
+  .principios-grupo-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: var(--s2);
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .principios-grupo-icon {
+    width: 40px; height: 40px;
+    border-radius: var(--r-card);
+    background: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .principios-grupo-title {
+    font-family: var(--ff-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--gray-900);
+  }
+  .principios-grupo-sub {
+    font-size: var(--text-caption);
+    color: var(--gray-500);
+    margin-top: 2px;
+  }
+
+  .principio-item {
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+    overflow: hidden;
+    margin-bottom: 10px;
+    transition: box-shadow 0.2s;
+  }
+  .principio-item:hover { box-shadow: var(--sh-soft); }
+
+  .principio-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: var(--s2);
+    cursor: pointer;
+    user-select: none;
+  }
+  .principio-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--surface-sunken);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: var(--text-caption);
+    font-weight: 700;
+    font-family: var(--ff-mono);
+    color: var(--gray-500);
+    flex-shrink: 0;
+  }
+  .principio-frase {
+    flex: 1;
+    font-size: var(--text-body-sm);
+    font-weight: 600;
+    color: var(--gray-900);
+    line-height: 1.45;
+    padding-top: 4px;
+  }
+  .principio-toggle {
+    font-size: 0.7rem;
+    color: var(--gray-300);
+    padding-top: 6px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .principio-item.open .principio-toggle { transform: rotate(180deg); }
+
+  .principio-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.28s ease;
+  }
+  .principio-item.open .principio-body { max-height: 200px; }
+
+  .principio-aplicacao {
+    padding: 0 var(--s2) var(--s2) calc(var(--s2) + 28px + 14px);
+    font-size: var(--text-body-sm);
+    color: var(--gray-700);
+    line-height: 1.6;
+    border-top: 1px solid var(--surface-sunken);
+    padding-top: 10px;
+  }
+  .principio-aplicacao strong { color: var(--primary); font-weight: 600; }
+
+  /* ════════════════════════════════════════════
      RESPONSIVE
   ════════════════════════════════════════════ */
   @media (max-width: 900px) {
@@ -769,6 +950,7 @@
 
   <!-- ── DESTAQUE ── -->
   <div class="nav-section-label" style="margin-top:8px">⭐ DESTAQUE</div>
+  <a class="nav-link special" href="#destaque-manifesto">Manifesto Ágil</a>
   <a class="nav-link special" href="#destaque-diario">Rotina Diária do PO</a>
   <a class="nav-link special" href="#destaque-antes-codar">Antes de Codar</a>
   <a class="nav-link special" href="#destaque-boas-praticas">50 Boas Práticas</a>
@@ -1830,6 +2012,275 @@
 <!-- ════════════════════════════════════════════ -->
 
 <!-- ── ROTINA DIÁRIA ──────────────────────────── -->
+<section class="section" id="destaque-manifesto">
+  <div class="section-book-tag tag-special">⭐ Destaque PO</div>
+  <h2 class="section-title">Manifesto Ágil — O que guia tudo</h2>
+  <p class="section-subtitle">4 valores e 12 princípios com aplicação prática para o PO/PM no dia a dia</p>
+  <div class="divider"></div>
+
+  <!-- ── 4 VALORES ── -->
+  <div class="card card-accent-forest" style="margin-bottom:var(--s3)">
+    <h3 style="color:var(--primary);margin-bottom:4px">Os 4 Valores</h3>
+    <p style="margin-bottom:var(--s2);color:var(--gray-500)">Valorizamos o item da <strong style="color:var(--primary)">esquerda</strong> mais que o da direita — os itens da direita têm valor, mas os da esquerda têm mais.</p>
+    <div class="grid-2">
+
+      <div class="valor-card">
+        <div class="valor-vs">
+          <div class="valor-lado left">
+            <span class="valor-label primary-lbl">✅ Valorizado</span>
+            <span class="valor-text primary-txt">Indivíduos e interações</span>
+          </div>
+          <div class="valor-divider"><span>mais que</span></div>
+          <div class="valor-lado right">
+            <span class="valor-label secondary-lbl">Menos que</span>
+            <span class="valor-text secondary-txt">Processos e ferramentas</span>
+          </div>
+        </div>
+        <div class="valor-po-tip"><strong>Para o PO:</strong> Uma conversa de 10 min com o cliente vale mais que 3 dias de documentação de requisitos.</div>
+      </div>
+
+      <div class="valor-card">
+        <div class="valor-vs">
+          <div class="valor-lado left">
+            <span class="valor-label primary-lbl">✅ Valorizado</span>
+            <span class="valor-text primary-txt">Software funcionando</span>
+          </div>
+          <div class="valor-divider"><span>mais que</span></div>
+          <div class="valor-lado right">
+            <span class="valor-label secondary-lbl">Menos que</span>
+            <span class="valor-text secondary-txt">Documentação abrangente</span>
+          </div>
+        </div>
+        <div class="valor-po-tip"><strong>Para o PO:</strong> Entregue algo que o usuário possa usar e testar. Documentação não resolve dor de cliente.</div>
+      </div>
+
+      <div class="valor-card">
+        <div class="valor-vs">
+          <div class="valor-lado left">
+            <span class="valor-label primary-lbl">✅ Valorizado</span>
+            <span class="valor-text primary-txt">Colaboração com o cliente</span>
+          </div>
+          <div class="valor-divider"><span>mais que</span></div>
+          <div class="valor-lado right">
+            <span class="valor-label secondary-lbl">Menos que</span>
+            <span class="valor-text secondary-txt">Negociação de contratos</span>
+          </div>
+        </div>
+        <div class="valor-po-tip"><strong>Para o PO:</strong> Stakeholders não são adversários — são parceiros de descoberta. Envolva-os antes, não depois.</div>
+      </div>
+
+      <div class="valor-card">
+        <div class="valor-vs">
+          <div class="valor-lado left">
+            <span class="valor-label primary-lbl">✅ Valorizado</span>
+            <span class="valor-text primary-txt">Responder a mudanças</span>
+          </div>
+          <div class="valor-divider"><span>mais que</span></div>
+          <div class="valor-lado right">
+            <span class="valor-label secondary-lbl">Menos que</span>
+            <span class="valor-text secondary-txt">Seguir um plano</span>
+          </div>
+        </div>
+        <div class="valor-po-tip"><strong>Para o PO:</strong> Um backlog rígido é um plano disfarçado. Repriorize a cada sprint com base no que aprendeu.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 12 PRINCÍPIOS ── -->
+  <div class="card" style="padding:var(--s3);margin-bottom:0">
+    <h3 style="color:var(--primary);margin-bottom:4px">Os 12 Princípios</h3>
+    <p style="margin-bottom:var(--s3);color:var(--gray-500)">Clique em cada princípio para ver como aplicar no dia a dia. Agrupados em 4 temas.</p>
+
+    <!-- GRUPO 1: PRODUTO -->
+    <div class="principios-grupo">
+      <div class="principios-grupo-header">
+        <div class="principios-grupo-icon">📦</div>
+        <div>
+          <div class="principios-grupo-title">Produto</div>
+          <div class="principios-grupo-sub">Entrega contínua de valor real</div>
+        </div>
+      </div>
+
+      <div class="principio-item" onclick="togglePrincipio(this)">
+        <div class="principio-header">
+          <div class="principio-num">01</div>
+          <div class="principio-frase">Satisfazer o cliente através da entrega contínua e adiantada de software com valor.</div>
+          <div class="principio-toggle">▼</div>
+        </div>
+        <div class="principio-body">
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> Entregue algo utilizável a cada sprint, mesmo que pequeno. Valor antecipado gera feedback antecipado — o melhor ciclo possível.</div>
+        </div>
+      </div>
+
+      <div class="principio-item" onclick="togglePrincipio(this)">
+        <div class="principio-header">
+          <div class="principio-num">03</div>
+          <div class="principio-frase">Entregar software funcionando com frequência — de poucas semanas a poucos meses.</div>
+          <div class="principio-toggle">▼</div>
+        </div>
+        <div class="principio-body">
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> Sprints de 1–2 semanas são ideais. Quanto mais curto o ciclo, mais rápido você aprende e corrige direção.</div>
+        </div>
+      </div>
+
+      <div class="principio-item" onclick="togglePrincipio(this)">
+        <div class="principio-header">
+          <div class="principio-num">07</div>
+          <div class="principio-frase">Software funcionando é a medida primária de progresso.</div>
+          <div class="principio-toggle">▼</div>
+        </div>
+        <div class="principio-body">
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> Não reporte progresso por tarefas concluídas ou horas gastas. Só conta o que o usuário pode tocar e usar hoje.</div>
+        </div>
+      </div>
+
+      <div class="principio-item" onclick="togglePrincipio(this)">
+        <div class="principio-header">
+          <div class="principio-num">10</div>
+          <div class="principio-frase">Simplicidade — a arte de maximizar a quantidade de trabalho não realizado — é essencial.</div>
+          <div class="principio-toggle">▼</div>
+        </div>
+        <div class="principio-body">
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> A melhor feature é a que você não constrói. Antes de qualquer item entrar no sprint, questione: isso é realmente necessário agora?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRUPO 2: PESSOAS -->
+    <div class="principios-grupo">
+      <div class="principios-grupo-header">
+        <div class="principios-grupo-icon">👥</div>
+        <div>
+          <div class="principios-grupo-title">Pessoas</div>
+          <div class="principios-grupo-sub">Times motivados e autônomos entregam melhor</div>
+        </div>
+      </div>
+
+      <div class="principio-item" onclick="togglePrincipio(this)">
+        <div class="principio-header">
+          <div class="principio-num">05</div>
+          <div class="principio-frase">Construir projetos em torno de indivíduos motivados, dando-lhes o ambiente e suporte que precisam.</div>
+          <div class="principio-toggle">▼</div>
+        </div>
+        <div class="principio-body">
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> Remova impedimentos. Conecte o time ao propósito do produto. Times motivados entregam 2–4× mais que times apenas gerenciados.</div>
+        </div>
+      </div>
+
+      <div class="principio-item" onclick="togglePrincipio(this)">
+        <div class="principio-header">
+          <div class="principio-num">06</div>
+          <div class="principio-frase">O método mais eficiente de transmitir informações é a conversa face a face.</div>
+          <div class="principio-toggle">▼</div>
+        </div>
+        <div class="principio-body">
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> Não substitua uma conversa de 5 min por um documento de 2 páginas. Prefira sincronia quando a decisão for crítica.</div>
+        </div>
+      </div>
+
+      <div class="principio-item" onclick="togglePrincipio(this)">
+        <div class="principio-header">
+          <div class="principio-num">08</div>
+          <div class="principio-frase">Processos ágeis promovem desenvolvimento sustentável — ritmo constante indefinidamente.</div>
+          <div class="principio-toggle">▼</div>
+        </div>
+        <div class="principio-body">
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> Proteja o time de crunch e heroísmo crônico. Ritmo sustentável gera mais qualidade e menos bugs do que sprints de 60h.</div>
+        </div>
+      </div>
+
+      <div class="principio-item" onclick="togglePrincipio(this)">
+        <div class="principio-header">
+          <div class="principio-num">11</div>
+          <div class="principio-frase">As melhores arquiteturas, requisitos e designs emergem de times auto-organizáveis.</div>
+          <div class="principio-toggle">▼</div>
+        </div>
+        <div class="principio-body">
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> Não microgerencie como fazer — dê o problema e confie no time. Auto-organização gera ownership, e ownership gera qualidade.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRUPO 3: COLABORAÇÃO -->
+    <div class="principios-grupo">
+      <div class="principios-grupo-header">
+        <div class="principios-grupo-icon">🤝</div>
+        <div>
+          <div class="principios-grupo-title">Colaboração</div>
+          <div class="principios-grupo-sub">Negócio e time como um só</div>
+        </div>
+      </div>
+
+      <div class="principio-item" onclick="togglePrincipio(this)">
+        <div class="principio-header">
+          <div class="principio-num">04</div>
+          <div class="principio-frase">Pessoas de negócio e desenvolvedores devem trabalhar juntos diariamente.</div>
+          <div class="principio-toggle">▼</div>
+        </div>
+        <div class="principio-body">
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> Você é a ponte. Esteja disponível para o time todo dia — sem acesso ao PO, a equipe toma decisões sem contexto de negócio.</div>
+        </div>
+      </div>
+
+      <div class="principio-item" onclick="togglePrincipio(this)">
+        <div class="principio-header">
+          <div class="principio-num">09</div>
+          <div class="principio-frase">Atenção contínua à excelência técnica e bom design aumenta a agilidade.</div>
+          <div class="principio-toggle">▼</div>
+        </div>
+        <div class="principio-body">
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> Não sacrifique qualidade técnica por velocidade. Dívida técnica é dívida de produto — você vai pagar com juros em forma de bugs e lentidão.</div>
+        </div>
+      </div>
+
+      <div class="principio-item" onclick="togglePrincipio(this)">
+        <div class="principio-header">
+          <div class="principio-num">12</div>
+          <div class="principio-frase">Em intervalos regulares, o time reflete sobre como se tornar mais eficaz e ajusta seu comportamento.</div>
+          <div class="principio-toggle">▼</div>
+        </div>
+        <div class="principio-body">
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> A retrospectiva não é opcional. Um kaizen por sprint, todo sprint. Em 6 meses o time será irreconhecivelmente melhor.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRUPO 4: ADAPTAÇÃO -->
+    <div class="principios-grupo" style="margin-bottom:0">
+      <div class="principios-grupo-header">
+        <div class="principios-grupo-icon">🔄</div>
+        <div>
+          <div class="principios-grupo-title">Adaptação</div>
+          <div class="principios-grupo-sub">Abraçar a mudança como vantagem competitiva</div>
+        </div>
+      </div>
+
+      <div class="principio-item" onclick="togglePrincipio(this)">
+        <div class="principio-header">
+          <div class="principio-num">02</div>
+          <div class="principio-frase">Mudanças nos requisitos são bem-vindas, mesmo no final do desenvolvimento.</div>
+          <div class="principio-toggle">▼</div>
+        </div>
+        <div class="principio-body">
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> Mudança de requisito é sinal de que você está aprendendo — não de que algo deu errado. Backlog é vivo, não contrato.</div>
+        </div>
+      </div>
+
+      <div class="principio-item" onclick="togglePrincipio(this)">
+        <div class="principio-header">
+          <div class="principio-num">11</div>
+          <div class="principio-frase">Agilidade promove desenvolvimento sustentável — padrão constante de excelência técnica.</div>
+          <div class="principio-toggle">▼</div>
+        </div>
+        <div class="principio-body">
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> Inspecione e adapte a cada sprint. Dados de velocidade, felicidade do time e resultados de negócio devem guiar o próximo ciclo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="destaque-diario">
   <div class="section-book-tag tag-special">⭐ Destaque PO</div>
   <h2 class="section-title">A Rotina Diária do PO que se Destaca</h2>
@@ -2071,6 +2522,11 @@
 
 <script>
   // ── ACCORDION ──────────────────────────────────
+  // ── Princípios accordion ──
+  function togglePrincipio(el) {
+    el.classList.toggle('open');
+  }
+
   function toggleAcc(id) {
     const body = document.getElementById('acc-' + id + '-body');
     const btn  = document.querySelector('#acc-' + id + ' .nav-book-btn');
