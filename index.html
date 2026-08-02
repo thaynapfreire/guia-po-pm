@@ -3,186 +3,151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guia do PO — Boas Práticas PO/PM</title>
+<title>Guia de Boas Práticas PO/PM</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
 
-  /* ════════════════════════════════════════════
-     DESIGN TOKENS — Product UI Styleguide v2.1
-  ═════════════════════════════════════════════
-     1. COLOR TOKENS
-  ════════════════════════════════════════════ */
+  /* ═══════════════════════════════════════════
+     DESIGN SYSTEM — Apresentações Executivas
+     Modo Escuro (padrão)
+  ═══════════════════════════════════════════ */
   :root {
-    /* Primary */
-    --primary:          #004D4D;
-    --primary-hover:    #003838;
-    --primary-active:   #002828;
-    --primary-light:    rgba(0,77,77,0.08);
-    --primary-ring:     rgba(0,77,77,0.25);
+    /* BG */
+    --bg-primary:        #F8F9FC;
+    --bg-surface:        #FFFFFF;
+    --bg-surface-hover:  #F0F2F8;
 
-    /* Surface / Background */
-    --surface:          #FDFBF7;
-    --surface-raised:   #FFFFFF;
-    --surface-sunken:   #F5F3EE;
+    /* Border */
+    --border-subtle:     #D0D5E8;
+    --border-strong:     #A0ACCC;
 
-    /* Border / Lines */
-    --border:           #E0E0E0;
-    --border-strong:    #C8C8C8;
-    --border-disabled:  #D1D1D1;
+    /* Accent */
+    --accent:            #0033FF;
+    --accent-soft:       rgba(0,51,255,0.10);
+    --accent-grad-start: #0033FF;
+    --accent-grad-end:   #FF6A00;
 
-    /* Gray Scale — Texts */
-    --gray-900:  #1A1A1A;
-    --gray-700:  #454545;
-    --gray-500:  #757575;
-    --gray-300:  #D1D1D1;
+    /* Text — todos AAA (7:1) sobre bg-primary */
+    --text-primary:   #071A4A;   /* 14:1 sobre #F8F9FC */
+    --text-secondary: #2D3A6B;   /* 8.5:1 — era #4A5578, muito claro */
+    --text-muted:     #5A6A99;   /* 4.8:1 — era #8996BE, reprovava AA */
 
-    /* Accent — mantidos para identidade visual dos livros */
-    --amber:     #004D4D;
-    --amber-bg:  rgba(0,77,77,0.08);
-    --amber-dk:  #003838;
-    --orange:    #004D4D;
-    --orange-bg: rgba(0,77,77,0.06);
-    --orange-dk: #003838;
+    /* Feedback */
+    --success:  #0A7A18;   /* escurecido para AA sobre branco */
+    --warning:  #A06000;   /* escurecido — #FFB800 era ilegível como texto */
+    --danger:   #CC4400;   /* escurecido para AA sobre branco */
 
-    /* 5. Alerts & Feedback */
-    --success-bg:    #ECFDF5;
-    --success-bd:    #6EE7B7;
-    --success-txt:   #065F46;
-    --info-bg:       #EFF6FF;
-    --info-bd:       #93C5FD;
-    --info-txt:      #1E40AF;
-    --warning-bg:    #FFFBEB;
-    --warning-bd:    #FDFBF7;
-    --warning-txt:   #92400E;
-    --error-bg:      #FEF2F2;
-    --error-bd:      #FCA5A5;
-    --error-txt:     #991B1B;
+    /* DS Tokens */
+    --ff-body:  'Inter', system-ui, sans-serif;
+    --ff-mono:  'DM Mono', monospace;
 
-    /* 2. TYPOGRAPHY */
-    --ff-display: 'Playfair Display', Georgia, serif;
-    --ff-body:    'DM Sans', system-ui, sans-serif;
-    --ff-mono:    'DM Mono', monospace;
+    /* Spacing (base 8px) */
+    --s1:  4px;  --s2:  8px;   --s3: 16px;
+    --s4:  24px; --s5:  32px;  --s6: 48px; --s7: 64px;
 
-    --text-h1:       clamp(2.4rem, 4vw, 3rem);   /* 48px+ */
-    --text-h2:       clamp(2rem, 3vw, 2.25rem);  /* 32–36px */
-    --text-h3:       1.5rem;                      /* 24px */
-    --text-body-lg:  1.125rem;                    /* 18px */
-    --text-body-md:  1rem;                        /* 16px */
-    --text-body-sm:  0.875rem;                    /* 14px */
-    --text-caption:  0.75rem;                     /* 12px */
+    /* Radius */
+    --r-sm:   8px;
+    --r-md:   12px;
+    --r-lg:   16px;
+    --r-full: 9999px;
 
-    /* 4. SPACING — multiples of 8px */
-    --s1:  8px;
-    --s2:  16px;
-    --s3:  24px;
-    --s4:  32px;
-    --s5:  48px;
-    --s6:  64px;
-
-    /* 4. RADIUS */
-    --r-input:  6px;
-    --r-btn:    8px;
-    --r-card:   12px;
-    --r-chip:   24px;
-    --r-full:   9999px;
-
-    /* 4. ELEVATION */
-    --sh-soft:     0 4px 6px -1px rgba(0,0,0,0.10);
-    --sh-floating: 0 10px 15px -3px rgba(0,0,0,0.10);
+    /* Elevation — suavizada para modo claro */
+    --sh-card:     0 1px 4px rgba(7,26,74,0.08), 0 4px 12px rgba(7,26,74,0.06);
+    --sh-elevated: 0 4px 16px rgba(7,26,74,0.12), 0 12px 32px rgba(7,26,74,0.08);
   }
 
-  /* ── RESET ─────────────────────────────────── */
+  /* ── RESET ──────────────────────────────── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; font-size: 16px; }
   body {
     font-family: var(--ff-body);
-    font-size: var(--text-body-md);
-    background: var(--surface);
-    color: var(--gray-900);
+    font-size: 18px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ════════════════════════════════════════════
+  /* ═══════════════════════════════════════════
      SIDEBAR
-  ════════════════════════════════════════════ */
+  ═══════════════════════════════════════════ */
   #sidebar {
     position: fixed; left: 0; top: 0;
     width: 272px; height: 100vh;
-    background: var(--primary);
-    overflow-y: auto; z-index: 100;
+    background: #071A4A;
+    border-right: 1px solid rgba(255,255,255,0.08);
     display: flex; flex-direction: column;
-    border-right: 1px solid rgba(255,255,255,0.15);
     transition: transform 0.3s ease;
   }
   #sidebar::-webkit-scrollbar { width: 3px; }
-  #sidebar::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 2px; }
+  #sidebar::-webkit-scrollbar-thumb { background: #0033FF; border-radius: 2px; }
 
   .sidebar-header {
-    padding: var(--s3) var(--s2) var(--s2);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: var(--s4) var(--s3) var(--s3);
+    border-bottom: 1px solid var(--border-subtle);
   }
   .sidebar-logo {
-    font-family: var(--ff-display);
-    font-size: 1.05rem; font-weight: 900;
-    color: #FDFBF7; line-height: 1.25; margin-bottom: 4px;
-    letter-spacing: -0.01em;
+    font-family: var(--ff-body);
+    font-size: 0.95rem; font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.01em; margin-bottom: 4px;
   }
   .sidebar-sub {
-    font-size: var(--text-caption); font-weight: 600;
-    color: rgba(255,255,255,0.35);
+    font-size: 0.65rem; font-weight: 500;
+    color: rgba(255,255,255,0.45);
     letter-spacing: 0.1em; text-transform: uppercase;
   }
 
   .nav-section-label {
-    padding: var(--s2) var(--s2) var(--s1);
-    font-size: 0.65rem; font-weight: 700;
+    padding: var(--s3) var(--s3) var(--s2);
+    font-size: 0.6rem; font-weight: 600;
     letter-spacing: 0.14em; text-transform: uppercase;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.38);
   }
   .nav-link {
-    display: block; padding: 8px var(--s2);
-    font-size: var(--text-body-sm); font-weight: 400;
+    display: block; padding: 8px var(--s3);
+    font-size: 0.82rem; font-weight: 400;
     color: rgba(255,255,255,0.65);
     text-decoration: none;
-    border-left: 3px solid transparent;
+    border-left: 2px solid transparent;
     transition: all 0.18s; line-height: 1.4;
   }
   .nav-link:hover, .nav-link.active {
-    color: #fff; border-left-color: #FDFBF7;
-    background: rgba(255,255,255,0.08); padding-left: 20px;
+    color: #FFFFFF;
+    border-left-color: #0033FF;
+    background: rgba(0,51,255,0.15);
+    padding-left: 20px;
   }
   .nav-link.book-2 { color: rgba(255,255,255,0.6); }
   .nav-link.book-2:hover, .nav-link.book-2.active {
-    color: #fff; border-left-color: #fff;
-    background: rgba(255,255,255,0.08);
+    color: #FFFFFF;
+    border-left-color: #FFB800;
+    background: rgba(255,184,0,0.10);
   }
-  .nav-link.special { color: #FDFBF7; font-weight: 600; }
+  .nav-link.special { color: #FFD54F; font-weight: 600; }
   .nav-link.special:hover, .nav-link.special.active {
-    color: #fff; border-left-color: #FDFBF7;
-    background: rgba(0,77,77,0.12);
+    color: #FFFFFF;
+    border-left-color: #FFD54F;
+    background: rgba(255,213,79,0.10);
   }
 
-  /* accordion */
+  /* Accordion */
   .nav-accordion { border-bottom: 1px solid rgba(255,255,255,0.07); }
   .nav-book-btn {
-    width: 100%; display: flex; align-items: center; gap: var(--s1);
-    padding: 12px var(--s2);
+    width: 100%; display: flex; align-items: center; gap: var(--s2);
+    padding: 12px var(--s3);
     background: transparent; border: none; cursor: pointer; text-align: left;
     transition: background 0.18s;
   }
-  .nav-book-btn:hover { background: rgba(255,255,255,0.04); }
+  .nav-book-btn:hover { background: rgba(255,255,255,0.05); }
   .nav-book-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-  .nav-book-title {
-    font-family: var(--ff-display);
-    font-size: 0.88rem; font-weight: 700; flex-shrink: 0;
-  }
-  .book-amber .nav-book-title { color: #FDFBF7; }
-  .book-orange .nav-book-title { color: #FDFBF7; }
+  .nav-book-title { font-size: 0.9rem; font-weight: 700; flex-shrink: 0; }
+  .book-amber .nav-book-title { color: #FFD54F; }
+  .book-orange .nav-book-title { color: #FFB26B; }
   .nav-book-author {
-    font-size: 0.65rem; color: rgba(255,255,255,0.35);
+    font-size: 0.65rem; color: rgba(255,255,255,0.38);
     flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .acc-arrow {
@@ -190,706 +155,630 @@
     transition: transform 0.22s ease; flex-shrink: 0;
   }
   .nav-book-btn.open .acc-arrow { transform: rotate(180deg); }
-  .nav-acc-body { overflow: hidden; max-height: 0; transition: max-height 0.35s ease; }
+  .nav-acc-body { overflow: hidden; max-height: 0; transition: max-height 0.3s ease; }
   .nav-acc-body.open { max-height: 800px; }
   .nav-acc-body .nav-link { padding-left: 34px; font-size: 0.76rem; border-left-width: 2px; }
   .nav-acc-body .nav-link:hover,
   .nav-acc-body .nav-link.active { padding-left: 38px; }
 
-  /* ════════════════════════════════════════════
+  /* ═══════════════════════════════════════════
      MAIN
-  ════════════════════════════════════════════ */
+  ═══════════════════════════════════════════ */
   #main { margin-left: 272px; min-height: 100vh; }
-  .content-area { padding: 0 var(--s6) var(--s6); }
+  .content-area { padding: 0 var(--s7) var(--s7); }
 
-  /* ════════════════════════════════════════════
+  /* ═══════════════════════════════════════════
      HERO
-  ════════════════════════════════════════════ */
+  ═══════════════════════════════════════════ */
   .hero {
-    background: var(--primary);
-    padding: var(--s6) var(--s6) var(--s5);
+    background: linear-gradient(145deg, #071A4A 0%, #0A2260 55%, #0F3070 100%);
+    padding: var(--s7) var(--s7) var(--s6);
     position: relative; overflow: hidden;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
   }
   .hero::before {
-    content: ''; position: absolute; top: -80px; right: -60px;
-    width: 380px; height: 380px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,77,77,0.12) 0%, transparent 68%);
+    content: ''; position: absolute; top: -100px; right: -80px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,51,255,0.25) 0%, transparent 65%);
     pointer-events: none;
   }
   .hero-badge {
-    display: inline-flex; align-items: center; gap: var(--s1);
-    background: rgba(0,77,77,0.12);
-    border: 1px solid rgba(0,77,77,0.12);
-    padding: 5px 14px; border-radius: var(--r-full);
-    font-size: var(--text-caption); font-weight: 700;
+    display: inline-flex; align-items: center; gap: var(--s2);
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 4px 12px; border-radius: var(--r-full);
+    font-size: 0.65rem; font-weight: 600;
     letter-spacing: 0.1em; text-transform: uppercase;
-    color: #FDFBF7; margin-bottom: var(--s2);
+    color: #A8C0FF; margin-bottom: var(--s3);
   }
   .hero h1 {
-    font-family: var(--ff-display);
-    font-size: var(--text-h1); font-weight: 900;
-    color: #FDFBF7; line-height: 1.08;
-    max-width: 600px; margin-bottom: var(--s2);
-    letter-spacing: -0.01em;
-    position: relative; z-index: 1;
+    font-family: var(--ff-body);
+    font-size: clamp(2.4rem, 4vw, 3.5rem); font-weight: 800;
+    color: #FFFFFF; line-height: 1.05;
+    max-width: 640px; margin-bottom: var(--s3);
+    letter-spacing: -0.02em; position: relative; z-index: 1;
   }
-  .hero h1 span { color: #FDFBF7; }
+  .hero h1 span { color: #7BA7FF; }
   .hero-desc {
-    font-size: var(--text-body-lg); color: rgba(253,251,247,0.68);
-    max-width: 500px; line-height: 1.65;
-    margin-bottom: var(--s3); position: relative; z-index: 1;
+    font-size: 1.05rem; color: rgba(255,255,255,0.72);
+    max-width: 520px; line-height: 1.65;
+    margin-bottom: var(--s4); position: relative; z-index: 1;
   }
-  .hero-books { display: flex; gap: var(--s2); flex-wrap: wrap; position: relative; z-index: 1; }
-  /* 3. Botão Secundário */
+  .hero-books { display: flex; gap: var(--s3); flex-wrap: wrap; position: relative; z-index: 1; }
   .hero-book-pill {
     display: flex; align-items: center; gap: 10px;
-    background: transparent;
-    border: 1px solid rgba(224,224,224,0.3);
-    padding: 10px 18px; border-radius: var(--r-chip);
-    font-size: var(--text-body-sm); font-weight: 500;
-    color: rgba(253,251,247,0.88); text-decoration: none;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 10px 18px; border-radius: var(--r-full);
+    font-size: 0.82rem; font-weight: 500;
+    color: rgba(255,255,255,0.85); text-decoration: none;
     transition: background 0.18s, border-color 0.18s, transform 0.15s;
+    backdrop-filter: blur(4px);
   }
   .hero-book-pill:hover {
-    background: rgba(255,255,255,0.1);
-    border-color: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.18);
+    border-color: rgba(255,255,255,0.35);
     transform: translateY(-2px);
   }
   .hero-book-pill .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
-  /* ════════════════════════════════════════════
-     SECTION
-  ════════════════════════════════════════════ */
-  .section { padding-top: var(--s6); scroll-margin-top: 20px; }
+  /* ═══════════════════════════════════════════
+     SECTIONS
+  ═══════════════════════════════════════════ */
+  .section { padding-top: var(--s7); scroll-margin-top: 20px; }
 
   .section-book-tag {
     display: inline-flex; align-items: center; gap: 5px;
-    font-size: var(--text-caption); font-weight: 700;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 3px 10px; border-radius: var(--r-chip);
-    margin-bottom: var(--s1);
+    font-size: 0.6rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: var(--r-full);
+    margin-bottom: var(--s2);
   }
-  .tag-inspirado { background: var(--amber-bg); color: var(--amber-dk); border: 1px solid rgba(0,77,77,0.15); }
-  .tag-scrum     { background: var(--orange-bg); color: var(--orange-dk); border: 1px solid rgba(0,77,77,0.12); }
-  .tag-special   { background: var(--primary); color: #fff; }
+  .tag-inspirado { background: rgba(0,51,255,0.08); color: #0022BB; border: 1px solid rgba(0,51,255,0.2); }
+  .tag-scrum     { background: rgba(180,60,0,0.08); color: #993300; border: 1px solid rgba(180,60,0,0.18); }
+  .tag-special   { background: #071A4A; color: #FFFFFF; border: none; }
 
-  /* H2 Heading */
   .section-title {
-    font-family: var(--ff-display);
-    font-size: var(--text-h2); font-weight: 700;
-    color: var(--gray-900); line-height: 1.2;
-    letter-spacing: -0.01em; margin-bottom: 6px;
+    font-family: var(--ff-body);
+    font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700;
+    color: var(--text-primary); line-height: 1.2;
+    letter-spacing: -0.02em; margin-bottom: 6px;
   }
   .section-subtitle {
-    font-size: var(--text-body-sm); color: var(--gray-500);
-    font-style: italic; margin-bottom: var(--s3);
+    font-size: 0.9rem; color: var(--text-secondary);
+    font-style: italic; margin-bottom: var(--s4);
   }
   .divider {
-    height: 1px; background: var(--border);
-    margin-bottom: var(--s3); opacity: 1;
+    height: 1px; background: var(--border-subtle);
+    margin-bottom: var(--s4);
   }
 
-  /* ════════════════════════════════════════════
+  /* ═══════════════════════════════════════════
      GRIDS
-  ════════════════════════════════════════════ */
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); margin-bottom: var(--s2); }
-  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--s2); margin-bottom: var(--s2); }
+  ═══════════════════════════════════════════ */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3); margin-bottom: var(--s3); }
+  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--s3); margin-bottom: var(--s3); }
 
-  /* ════════════════════════════════════════════
-     CARDS — radius 12px, soft shadow
-  ════════════════════════════════════════════ */
+  /* ═══════════════════════════════════════════
+     CARDS
+  ═══════════════════════════════════════════ */
   .card {
-    background: var(--surface-raised);
-    border: 1px solid var(--border);
-    border-radius: var(--r-card);
-    padding: var(--s3);
-    margin-bottom: var(--s2);
-    box-shadow: var(--sh-soft);
-    transition: box-shadow 0.2s, transform 0.18s, border-color 0.18s;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--r-lg);
+    padding: var(--s4);
+    margin-bottom: var(--s3);
+    box-shadow: var(--sh-card);
+    transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
   }
-  .card:hover {
-    box-shadow: var(--sh-floating);
-    transform: translateY(-2px);
-    border-color: var(--border-strong);
-  }
-  .card-accent-left   { border-left: 4px solid var(--amber); }
-  .card-accent-orange { border-left: 4px solid var(--orange); }
-  .card-accent-forest { border-left: 4px solid var(--primary); background: var(--primary-light); }
+  .card:hover { border-color: var(--border-strong); transform: translateY(-2px); box-shadow: var(--sh-elevated); }
+  .card-accent-left   { border-left: 3px solid var(--accent); }
+  .card-accent-orange { border-left: 3px solid #993300; }
+  .card-accent-forest { border-left: 3px solid #0A7A18; background: rgba(10,122,24,0.04); }
 
-  /* H3 Subheading */
   .card h3 {
-    font-family: var(--ff-display);
-    font-size: 1.05rem; font-weight: 700;
-    color: var(--amber-dk); margin-bottom: var(--s1);
+    font-family: var(--ff-body);
+    font-size: 1rem; font-weight: 700;
+    color: var(--text-primary); margin-bottom: var(--s2);
+    letter-spacing: -0.01em;
   }
-  .card-orange h3 { color: var(--orange-dk); }
-  .card p {
-    font-size: var(--text-body-sm); color: var(--gray-700);
-    line-height: 1.7; margin-bottom: var(--s1);
-  }
+  .card-orange h3 { color: #993300; }
+  .card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: var(--s2); }
   .card p:last-child { margin-bottom: 0; }
 
-  /* ════════════════════════════════════════════
-     PRACTICE LIST
-  ════════════════════════════════════════════ */
-  .practice-list { list-style: none; display: flex; flex-direction: column; gap: var(--s1); }
+  /* ═══════════════════════════════════════════
+     PRACTICE LIST — fluxo natural, sem flex bi-coluna
+  ═══════════════════════════════════════════ */
+  .practice-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
   .practice-list li {
-    display: flex; gap: 10px; align-items: flex-start;
-    font-size: var(--text-body-sm); color: var(--gray-700); line-height: 1.65;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    padding-left: 16px;
+    position: relative;
   }
   .practice-list li::before {
-    content: '▸'; color: var(--amber);
-    font-size: 0.65rem; margin-top: 4px; flex-shrink: 0;
+    content: '▸';
+    color: var(--accent);
+    font-size: 0.6rem;
+    position: absolute;
+    left: 0;
+    top: 5px;
   }
-  .practice-list.orange li::before { color: var(--orange); }
-  .practice-list li strong { color: var(--gray-900); font-weight: 600; }
+  .practice-list.orange li::before { color: var(--danger); }
+  .practice-list li strong { color: var(--text-primary); font-weight: 600; }
 
-  /* ════════════════════════════════════════════
+  /* ═══════════════════════════════════════════
      HIGHLIGHT BOX
-  ════════════════════════════════════════════ */
+  ═══════════════════════════════════════════ */
   .highlight-box {
-    background: var(--primary-light);
-    border: 1px solid rgba(0,77,77,0.15);
-    border-left: 4px solid var(--primary);
-    border-radius: var(--r-card); padding: var(--s3);
-    margin-bottom: var(--s2);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--r-lg);
+    padding: var(--s4); margin-bottom: var(--s3);
   }
   .highlight-box .quote {
-    font-family: var(--ff-display); font-size: 1.05rem;
-    font-style: italic; color: var(--primary);
-    line-height: 1.55; margin-bottom: 6px;
+    font-family: var(--ff-body); font-size: 1rem;
+    font-style: italic; color: var(--text-primary);
+    line-height: 1.6; margin-bottom: 8px;
   }
   .highlight-box .quote-attr {
-    font-size: var(--text-caption); color: var(--gray-500);
-    font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    font-size: 0.7rem; color: var(--text-muted);
+    font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
   }
 
-  /* ════════════════════════════════════════════
+  /* ═══════════════════════════════════════════
      PROFILE CARD
-  ════════════════════════════════════════════ */
+  ═══════════════════════════════════════════ */
   .profile-card {
-    background: var(--surface-raised);
-    border: 1px solid var(--border);
-    border-radius: var(--r-card); padding: var(--s3);
-    margin-bottom: var(--s1); display: flex; gap: var(--s2);
-    box-shadow: var(--sh-soft);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--r-lg); padding: var(--s4);
+    margin-bottom: var(--s2); display: flex; gap: var(--s3);
+    box-shadow: var(--sh-card);
   }
   .profile-icon {
-    width: 46px; height: 46px; border-radius: 50%;
-    background: var(--primary);
+    width: 48px; height: 48px; border-radius: var(--r-md);
+    background: linear-gradient(135deg, var(--accent-grad-start), var(--accent-grad-end));
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.3rem; flex-shrink: 0;
+    font-size: 1.4rem; flex-shrink: 0;
   }
   .profile-body h4 {
-    font-family: var(--ff-display); font-size: 1rem; font-weight: 700;
-    color: var(--primary); margin-bottom: 3px;
+    font-size: 1rem; font-weight: 700;
+    color: var(--text-primary); margin-bottom: 3px;
   }
   .profile-body .profile-role {
-    font-size: var(--text-caption); color: var(--gray-500);
-    text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 8px;
+    font-size: 0.7rem; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;
   }
-  .profile-body p { font-size: var(--text-body-sm); color: var(--gray-700); line-height: 1.6; }
+  .profile-body p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
 
-  /* ════════════════════════════════════════════
+  /* ═══════════════════════════════════════════
      SPECIAL SECTION
-  ════════════════════════════════════════════ */
+  ═══════════════════════════════════════════ */
   .special-section {
-    background: var(--surface-raised);
-    border: 1px solid var(--border);
-    border-radius: var(--r-card); padding: var(--s5);
-    margin-top: var(--s3); box-shadow: var(--sh-floating);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--r-lg); padding: var(--s5);
+    margin-top: var(--s4); box-shadow: var(--sh-elevated);
   }
 
-  /* ════════════════════════════════════════════
-     PILLS — chip radius 24px
-  ════════════════════════════════════════════ */
+  /* ═══════════════════════════════════════════
+     PILLS / BADGES — Caption Medium, pill radius
+  ═══════════════════════════════════════════ */
   .pill {
     display: inline-block; padding: 3px 10px;
-    border-radius: var(--r-chip);
-    font-size: var(--text-caption); font-weight: 700;
+    border-radius: var(--r-full);
+    font-size: 0.7rem; font-weight: 600;
     letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px;
   }
-  .pill-amber  { background: var(--amber-bg); color: var(--amber-dk); border: 1px solid rgba(0,77,77,0.15); }
-  .pill-orange { background: var(--orange-bg); color: var(--orange-dk); border: 1px solid rgba(0,77,77,0.12); }
-  .pill-cream  { background: var(--primary-light); color: var(--primary); border: 1px solid rgba(0,77,77,0.18); }
+  .pill-amber  { background: rgba(10,96,0,0.07); color: #5A3800; border: 1px solid rgba(90,56,0,0.2); }
+  .pill-orange { background: rgba(153,51,0,0.08); color: #993300; border: 1px solid rgba(153,51,0,0.2); }
+  .pill-cream  { background: rgba(0,51,255,0.08); color: #0022BB; border: 1px solid rgba(0,51,255,0.2); }
 
-  /* ════════════════════════════════════════════
+  /* ═══════════════════════════════════════════
      COMPARE TABLE
-  ════════════════════════════════════════════ */
-  .compare-table { width: 100%; border-collapse: collapse; font-size: var(--text-body-sm); margin-bottom: var(--s2); }
+  ═══════════════════════════════════════════ */
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-bottom: var(--s3); }
   .compare-table th {
-    padding: 11px var(--s2); font-weight: 700;
-    letter-spacing: 0.07em; text-transform: uppercase;
-    font-size: var(--text-caption);
-    border-bottom: 2px solid var(--border);
-    background: var(--surface-sunken);
-    color: var(--gray-700);
+    padding: 12px var(--s3); font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.7rem;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-muted); text-align: left;
+    background: var(--bg-surface-hover);
   }
-  .compare-table th:first-child { color: var(--amber-dk); text-align: left; }
-  .compare-table th:last-child  { color: var(--orange-dk); text-align: left; }
+  .compare-table th:first-child { color: #0033FF; }
+  .compare-table th:last-child  { color: var(--danger); }
   .compare-table td {
-    padding: 10px var(--s2);
-    border-bottom: 1px solid var(--surface-sunken);
-    color: var(--gray-700); line-height: 1.5; vertical-align: top;
+    padding: 11px var(--s3);
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-secondary); line-height: 1.5; vertical-align: top;
   }
-  .compare-table tr:hover td { background: var(--primary-light); }
+  .compare-table tr:hover td { background: rgba(0,51,255,0.04); }
 
-  /* ════════════════════════════════════════════
+  /* ═══════════════════════════════════════════
      ROUTINE STEPS
-  ════════════════════════════════════════════ */
-  .routine-step { display: flex; gap: var(--s2); margin-bottom: var(--s2); align-items: flex-start; }
+  ═══════════════════════════════════════════ */
+  .routine-step { display: flex; gap: var(--s3); margin-bottom: var(--s3); align-items: flex-start; }
   .routine-step-num {
     width: 34px; height: 34px; border-radius: 50%;
-    background: var(--primary); color: #fff;
+    background: var(--accent); color: #FFFFFF;
     font-weight: 700; font-size: 0.8rem;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0; font-family: var(--ff-mono);
   }
-  .routine-step-body h4 { font-weight: 600; font-size: 0.9rem; color: var(--primary); margin-bottom: 4px; }
-  .routine-step-body p  { font-size: var(--text-body-sm); color: var(--gray-500); line-height: 1.6; }
+  .routine-step-body h4 { font-weight: 700; font-size: 0.92rem; color: var(--text-primary); margin-bottom: 4px; }
+  .routine-step-body p  { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
 
-  /* ════════════════════════════════════════════
+  /* ═══════════════════════════════════════════
      CHECKLIST
-  ════════════════════════════════════════════ */
-  .checklist { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  ═══════════════════════════════════════════ */
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 8px; }
   .checklist li {
-    display: flex; align-items: flex-start; gap: 9px;
-    font-size: var(--text-body-sm); color: var(--gray-700); line-height: 1.55;
+    font-size: 0.88rem; color: var(--text-secondary);
+    line-height: 1.55; padding-left: 24px; position: relative;
   }
-  .checklist li::before { content: '☐'; color: var(--primary); font-size: 0.9rem; flex-shrink: 0; margin-top: 1px; }
+  .checklist li::before {
+    content: '☐'; color: var(--accent);
+    font-size: 0.9rem; position: absolute; left: 0; top: 1px;
+  }
 
-  /* ════════════════════════════════════════════
-     3. BUTTONS
-  ════════════════════════════════════════════ */
-  /* Botão Primário */
-  .btn-primary {
+  /* ═══════════════════════════════════════════
+     MANIFESTO — VALORES
+  ═══════════════════════════════════════════ */
+  .valor-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--r-lg); overflow: hidden;
+    box-shadow: var(--sh-card);
+    display: flex; flex-direction: column;
+    transition: box-shadow 0.2s, transform 0.18s;
+  }
+  .valor-card:hover { box-shadow: var(--sh-elevated); transform: translateY(-2px); }
+
+  .valor-vs {
+    display: grid; grid-template-columns: 1fr 1px 1fr; min-height: 110px;
+  }
+  .valor-lado { padding: var(--s3); display: flex; flex-direction: column; gap: 6px; justify-content: center; }
+  .valor-lado.left  { background: rgba(0,51,255,0.04); }
+  .valor-lado.right { background: var(--bg-surface-hover); }
+  .valor-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+  .valor-label.primary-lbl   { color: #0022BB; }
+  .valor-label.secondary-lbl { color: var(--text-muted); }
+  .valor-text { font-family: var(--ff-body); font-weight: 700; line-height: 1.25; }
+  .valor-text.primary-txt   { font-size: 1rem; color: var(--text-primary); }
+  .valor-text.secondary-txt { font-size: 0.88rem; color: var(--text-muted); text-decoration: line-through; text-decoration-color: var(--border-subtle); }
+  .valor-divider { display: flex; align-items: center; justify-content: center; background: var(--border-subtle); width: 1px; position: relative; }
+  .valor-divider span {
+    position: absolute; background: var(--bg-surface-hover); color: var(--text-muted);
+    font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    writing-mode: vertical-rl; padding: 6px 3px; border-radius: 4px; white-space: nowrap;
+  }
+  .valor-po-tip {
+    background: rgba(0,51,255,0.08); border-top: 1px solid var(--border-subtle);
+    padding: 10px var(--s3); font-size: 0.85rem;
+    color: var(--text-secondary); line-height: 1.55;
+  }
+  .valor-po-tip strong { color: #0022BB; font-weight: 700; }
+
+  /* ═══════════════════════════════════════════
+     MANIFESTO — PRINCÍPIOS
+  ═══════════════════════════════════════════ */
+  .principios-grupo { margin-bottom: var(--s4); }
+  .principios-grupo-header {
+    display: flex; align-items: center; gap: var(--s3);
+    margin-bottom: var(--s3); padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .principios-grupo-icon {
+    width: 40px; height: 40px; border-radius: var(--r-md);
+    background: linear-gradient(135deg, var(--accent-grad-start), var(--accent-grad-end));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .principios-grupo-title { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); }
+  .principios-grupo-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+  .principio-item {
+    background: var(--bg-surface); border: 1px solid var(--border-subtle);
+    border-radius: var(--r-md); overflow: hidden; margin-bottom: 10px;
+    transition: background 0.2s;
+  }
+  .principio-item:hover { background: var(--bg-surface-hover); }
+  .principio-header {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: var(--s3); cursor: pointer; user-select: none;
+  }
+  .principio-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(0,51,255,0.08); border: 1px solid rgba(0,51,255,0.18);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700; font-family: var(--ff-mono);
+    color: #0033FF; flex-shrink: 0;
+  }
+  .principio-frase {
+    flex: 1; font-size: 0.88rem; font-weight: 600;
+    color: var(--text-primary); line-height: 1.45; padding-top: 4px;
+  }
+  .principio-toggle { font-size: 0.7rem; color: var(--text-muted); padding-top: 6px; flex-shrink: 0; transition: transform 0.2s; }
+  .principio-item.open .principio-toggle { transform: rotate(180deg); }
+  .principio-body { max-height: 0; overflow: hidden; transition: max-height 0.28s ease; }
+  .principio-item.open .principio-body { max-height: 200px; }
+  .principio-aplicacao {
+    padding: 0 var(--s3) var(--s3) calc(var(--s3) + 28px + 14px);
+    font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;
+    border-top: 1px solid var(--border-subtle); padding-top: 12px;
+  }
+  .principio-aplicacao strong { color: #0033FF; font-weight: 600; }
+
+  /* ═══════════════════════════════════════════
+     BENTO ESTATÍSTICA
+  ═══════════════════════════════════════════ */
+  .bento-grid {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: var(--s3); margin-bottom: var(--s4);
+  }
+  .bento-cell      { grid-column: span 1; }
+  .bento-cell-wide { grid-column: span 2; }
+  .bento-cell-full { grid-column: span 3; }
+
+  .bento-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--r-lg); padding: var(--s4);
+    box-shadow: var(--sh-card);
+    display: flex; flex-direction: column; gap: 10px;
+    height: 100%;
+    transition: background 0.2s, transform 0.18s, box-shadow 0.18s;
+  }
+  .bento-card:hover { background: var(--bg-surface-hover); transform: translateY(-2px); box-shadow: var(--sh-elevated); }
+  .bento-card.accent-primary { border-top: 2px solid var(--accent); }
+  .bento-card.accent-mid     { border-top: 2px solid var(--text-muted); }
+  .bento-card.featured {
+    background: var(--bg-surface);
+    border-color: #071A4A;
+  }
+  .bento-icon { font-size: 1.4rem; line-height: 1; }
+  .bento-tag {
+    display: inline-block; font-size: 0.6rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: var(--r-full);
+    background: rgba(0,51,255,0.08); color: #0022BB; width: fit-content;
+  }
+  .bento-card.featured .bento-tag { background: rgba(0,51,255,0.10); color: #001899; }
+  .bento-title { font-size: 1rem; font-weight: 700; color: var(--text-primary); line-height: 1.25; }
+  .bento-card.featured .bento-title { color: var(--text-primary); font-size: 1.05rem; }
+  .bento-body { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.65; flex: 1; }
+  .bento-card.featured .bento-body { color: var(--text-secondary); }
+  .bento-rule {
+    font-size: 0.85rem; color: #0022BB; font-weight: 600;
+    background: rgba(0,51,255,0.06); border-left: 2px solid var(--accent);
+    padding: 8px 12px; border-radius: 0 var(--r-sm) var(--r-sm) 0; line-height: 1.5;
+  }
+  .bento-card.featured .bento-rule { background: rgba(0,51,255,0.07); border-left-color: var(--accent); color: #001899; }
+
+  /* Práticas */
+  .praticas-grid {
+    display: grid; grid-template-columns: repeat(5,1fr);
+    gap: var(--s3); margin-bottom: var(--s4);
+  }
+  .pratica-card {
+    background: var(--bg-surface); border: 1px solid var(--border-subtle);
+    border-radius: var(--r-lg); padding: var(--s3);
+    display: flex; flex-direction: column; gap: 8px;
+    box-shadow: var(--sh-card);
+    transition: background 0.18s, transform 0.18s;
+  }
+  .pratica-card:hover { background: var(--bg-surface-hover); transform: translateY(-2px); }
+  .pratica-num { font-size: 1.4rem; font-weight: 900; font-family: var(--ff-mono); color: var(--text-muted); line-height: 1; opacity: 0.25; }
+  .pratica-title { font-size: 0.88rem; font-weight: 700; color: #0022BB; line-height: 1.25; }
+  .pratica-body { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; flex: 1; }
+
+  /* Template hipótese */
+  .hipotese-wrap {
+    background: var(--bg-surface); border: 1px solid var(--border-subtle);
+    border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--sh-card);
+  }
+  .hipotese-header {
+    background: linear-gradient(135deg, #EEF2FF, var(--bg-surface));
+    border-bottom: 1px solid var(--border-subtle);
+    padding: var(--s3) var(--s4); display: flex; align-items: center; gap: 12px;
+  }
+  .hipotese-header-title { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .hipotese-header-sub { font-size: 0.75rem; color: var(--text-muted); }
+  .hipotese-body { padding: var(--s4); }
+  .hipotese-sentence { font-size: 1rem; color: var(--text-secondary); line-height: 2.4; margin-bottom: var(--s3); }
+  .hipotese-field {
+    display: inline-block;
+    border: none; border-bottom: 2px solid var(--accent);
+    background: var(--accent-soft); color: #0033FF; font-weight: 600;
+    font-family: var(--ff-body); font-size: 1rem;
+    padding: 2px 8px; border-radius: var(--r-sm) var(--r-sm) 0 0;
+    outline: none; min-width: 120px;
+    transition: background 0.18s, border-color 0.18s;
+  }
+  .hipotese-field:focus { background: rgba(0,51,255,0.2); border-bottom-color: #fff; }
+  .hipotese-field::placeholder { color: rgba(0,51,255,0.3); font-weight: 400; }
+  .hipotese-output {
+    background: var(--bg-primary); border: 1px solid var(--border-subtle);
+    border-radius: var(--r-md); padding: var(--s3) var(--s4);
+    font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;
+    white-space: pre-wrap; display: none; margin-top: var(--s3);
+    font-family: var(--ff-mono);
+  }
+  .hipotese-output.visible { display: block; }
+  .hipotese-actions { display: flex; gap: var(--s2); margin-top: var(--s4); flex-wrap: wrap; align-items: center; }
+
+  /* ═══════════════════════════════════════════
+     BUTTONS
+  ═══════════════════════════════════════════ */
+  .btn-primary, .skill-btn-primary {
     display: inline-flex; align-items: center; gap: 7px;
-    padding: 10px 22px; background: var(--primary); color: #fff;
-    border: none; border-radius: var(--r-btn);
-    font-family: var(--ff-body); font-size: var(--text-body-sm); font-weight: 600;
-    cursor: pointer; transition: background 0.18s, transform 0.14s, box-shadow 0.18s;
-    box-shadow: var(--sh-soft);
+    padding: 10px 22px; background: var(--accent); color: #FFFFFF;
+    border: none; border-radius: var(--r-md);
+    font-family: var(--ff-body); font-size: 0.88rem; font-weight: 600;
+    cursor: pointer;
+    transition: background 0.18s, transform 0.14s, box-shadow 0.18s;
+    box-shadow: 0 0 0 0 rgba(0,51,255,0);
   }
-  .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: var(--sh-floating); }
-  .btn-primary:active { background: var(--primary-active); transform: none; }
-  .btn-primary:disabled { background: var(--gray-300); cursor: not-allowed; box-shadow: none; transform: none; }
+  .btn-primary:hover, .skill-btn-primary:hover {
+    background: #0029CC; transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0,51,255,0.35);
+  }
+  .btn-primary:disabled, .skill-btn-primary:disabled { background: var(--text-muted); cursor: not-allowed; transform: none; }
 
-  /* Botão Secundário */
-  .btn-secondary {
+  .btn-secondary, .skill-btn-secondary, .skill-btn-copy {
     display: inline-flex; align-items: center; gap: 7px;
-    padding: 9px 20px; background: transparent; color: var(--gray-900);
-    border: 1px solid var(--border); border-radius: var(--r-btn);
-    font-family: var(--ff-body); font-size: var(--text-body-sm); font-weight: 500;
-    cursor: pointer; transition: border-color 0.18s, background 0.18s;
+    padding: 9px 18px; background: transparent; color: var(--text-secondary);
+    border: 1px solid var(--border-subtle); border-radius: var(--r-md);
+    font-family: var(--ff-body); font-size: 0.88rem; font-weight: 500;
+    cursor: pointer; transition: all 0.16s;
   }
-  .btn-secondary:hover { border-color: var(--border-strong); background: var(--surface-sunken); }
+  .btn-secondary:hover, .skill-btn-secondary:hover { border-color: var(--border-subtle); color: var(--text-primary); background: rgba(255,255,255,0.04); }
+  .skill-btn-copy:hover { border-color: var(--warning); color: var(--warning); }
 
-  /* Botão Terciário */
-  .btn-tertiary {
-    display: inline-flex; align-items: center; gap: 5px;
-    padding: 8px 12px; background: transparent; color: var(--gray-700);
-    border: none; border-radius: var(--r-btn);
-    font-family: var(--ff-body); font-size: var(--text-body-sm); font-weight: 500;
-    cursor: pointer; transition: color 0.18s, text-decoration 0.18s;
+  /* ═══════════════════════════════════════════
+     SKILL WIDGET
+  ═══════════════════════════════════════════ */
+  .skill-wrap {
+    margin-top: var(--s4); border-radius: var(--r-lg);
+    border: 1px solid var(--border-subtle); background: var(--bg-surface);
+    overflow: hidden; box-shadow: var(--sh-elevated);
   }
-  .btn-tertiary:hover { color: var(--primary); text-decoration: underline; }
+  .skill-header {
+    background: linear-gradient(135deg, #EEF2FF 0%, var(--bg-surface) 100%);
+    border-bottom: 1px solid var(--border-subtle); padding: var(--s3) var(--s4);
+  }
+  .skill-badge {
+    display: inline-block;
+    background: rgba(0,51,255,0.08); border: 1px solid rgba(0,51,255,0.2);
+    color: #001899; font-size: 0.6rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: var(--r-full); margin-bottom: var(--s2);
+  }
+  .skill-title { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+  .skill-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55; max-width: 540px; }
 
-  /* ════════════════════════════════════════════
-     4. INPUTS — border #E0E0E0, radius 6px
-  ════════════════════════════════════════════ */
-  .input-base {
-    border: 1.5px solid var(--border);
-    border-radius: var(--r-input);
-    padding: 9px 13px; font-family: var(--ff-body);
-    font-size: var(--text-body-sm); color: var(--gray-900);
-    background: var(--surface-raised); outline: none; width: 100%;
+  .skill-body { padding: var(--s4); display: flex; flex-direction: column; gap: var(--s3); }
+  .skill-fields { display: flex; flex-direction: column; gap: var(--s3); }
+  .skill-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3); }
+  .skill-field { display: flex; flex-direction: column; gap: 5px; }
+  .skill-label { font-size: 0.82rem; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 5px; }
+  .skill-hint { font-size: 0.7rem; font-weight: 400; color: var(--text-muted); font-style: italic; }
+  .skill-input {
+    border: 1px solid var(--border-subtle); border-radius: var(--r-sm);
+    padding: 9px 13px; font-family: var(--ff-body); font-size: 0.88rem;
+    color: var(--text-primary); background: var(--bg-primary); outline: none; width: 100%;
     transition: border-color 0.18s, box-shadow 0.18s;
   }
-  .input-base::placeholder { color: var(--gray-300); }
-  .input-base:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px var(--primary-ring);
-  }
+  .skill-input::placeholder { color: var(--text-muted); }
+  .skill-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,51,255,0.15); }
+  .skill-textarea { min-height: 76px; resize: vertical; line-height: 1.5; }
+  select.skill-input { cursor: pointer; }
 
-  /* ════════════════════════════════════════════
-     MOBILE TOGGLE
-  ════════════════════════════════════════════ */
+  .skill-toggle-group { display: flex; gap: var(--s2); flex-wrap: wrap; }
+  .skill-toggle {
+    padding: 6px 14px; border-radius: var(--r-full);
+    border: 1px solid var(--border-subtle); background: transparent;
+    font-family: var(--ff-body); font-size: 0.82rem; font-weight: 500;
+    color: var(--text-secondary); cursor: pointer; transition: all 0.16s;
+  }
+  .skill-toggle:hover { border-color: var(--accent); color: #0033FF; background: var(--accent-soft); }
+  .skill-toggle.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .skill-actions { display: flex; gap: var(--s2); flex-wrap: wrap; align-items: center; }
+
+  .skill-output {
+    border-radius: var(--r-md); border: 1px solid var(--border-subtle);
+    background: var(--bg-primary); overflow: hidden;
+  }
+  .skill-output-inner { padding: var(--s3) var(--s4); font-size: 0.88rem; color: var(--text-primary); line-height: 1.7; white-space: pre-wrap; }
+  .skill-output-inner .story-main {
+    font-size: 1rem; font-weight: 700; color: var(--text-primary);
+    background: var(--accent-soft); border-left: 3px solid var(--accent);
+    padding: 13px 17px; border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    margin-bottom: var(--s3); line-height: 1.4;
+  }
+  .skill-output-inner .story-section-title {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--danger); margin: 16px 0 7px;
+  }
+  .skill-output-inner .story-ac-item { display: flex; gap: 9px; margin-bottom: 5px; font-size: 0.88rem; color: var(--text-secondary); }
+  .skill-output-inner .story-ac-item::before { content: '✓'; color: var(--success); font-weight: 700; flex-shrink: 0; }
+  .skill-output-inner .invest-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 7px; }
+  .skill-output-inner .invest-item {
+    display: flex; align-items: center; gap: 5px; padding: 6px 9px;
+    border-radius: var(--r-sm); font-size: 0.8rem; font-weight: 500;
+    background: var(--bg-surface); border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+  }
+  .invest-ok   { border-color: rgba(10,158,31,0.3) !important; background: rgba(10,158,31,0.08) !important; color: #0A7A18 !important; }
+  .invest-warn { border-color: rgba(255,212,0,0.3) !important; background: rgba(255,212,0,0.06) !important; color: #A06000 !important; }
+
+  .skill-error {
+    background: rgba(153,51,0,0.06); border: 1px solid rgba(153,51,0,0.18);
+    border-radius: var(--r-sm); padding: 11px 15px;
+    font-size: 0.88rem; color: var(--danger);
+  }
+  .skill-loader {
+    display: inline-block; width: 13px; height: 13px;
+    border: 2px solid rgba(255,255,255,0.2); border-top-color: #fff;
+    border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 5px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .typing-cursor::after { content: '▋'; animation: blink 0.8s step-end infinite; color: var(--accent); font-size: 0.88em; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ═══════════════════════════════════════════
+     MOBILE TOGGLE / BACK TO TOP / FOOTER
+  ═══════════════════════════════════════════ */
   #menu-toggle {
     display: none; position: fixed; top: 14px; left: 14px; z-index: 200;
-    background: var(--primary); border: 2px solid rgba(255,255,255,0.2);
-    color: #fff; width: 42px; height: 42px;
-    border-radius: var(--r-btn); cursor: pointer; font-size: 1.1rem;
+    background: var(--bg-surface); border: 1px solid var(--border-subtle);
+    color: var(--text-primary); width: 42px; height: 42px;
+    border-radius: var(--r-md); cursor: pointer; font-size: 1.1rem;
     align-items: center; justify-content: center;
   }
-
-  /* ════════════════════════════════════════════
-     BACK TO TOP
-  ════════════════════════════════════════════ */
   #back-top {
     position: fixed; bottom: 24px; right: 24px;
-    width: 42px; height: 42px; background: var(--primary);
+    width: 42px; height: 42px; background: var(--accent);
     border: none; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     color: #fff; text-decoration: none; font-size: 1rem;
     opacity: 0; pointer-events: none;
     transition: opacity 0.25s, box-shadow 0.2s; z-index: 50;
-    box-shadow: var(--sh-soft);
   }
-  #back-top:hover { box-shadow: var(--sh-floating); }
+  #back-top:hover { box-shadow: 0 4px 16px rgba(0,51,255,0.4); }
   #back-top.visible { opacity: 1; pointer-events: all; }
 
-  /* ════════════════════════════════════════════
-     FOOTER
-  ════════════════════════════════════════════ */
   footer {
-    background: var(--primary); border-top: 1px solid rgba(255,255,255,0.1);
-    padding: var(--s3) var(--s6); margin-left: 272px;
-    font-size: var(--text-body-sm); color: rgba(255,255,255,0.4);
+    background: var(--bg-surface); border-top: 1px solid var(--border-subtle);
+    padding: var(--s4) var(--s7); margin-left: 272px;
+    font-size: 0.82rem; color: var(--text-muted);
     display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: var(--s1);
+    flex-wrap: wrap; gap: var(--s2);
   }
-  footer strong { color: #FDFBF7; }
+  footer strong { color: var(--accent); }
 
-  /* ════════════════════════════════════════════
-     SKILL WIDGET
-  ════════════════════════════════════════════ */
-  .skill-wrap {
-    margin-top: var(--s3); border-radius: var(--r-card);
-    border: 1px solid var(--border); background: var(--surface-raised);
-    overflow: hidden; box-shadow: var(--sh-floating);
-  }
-  .skill-header {
-    background: var(--primary);
-    padding: var(--s3) var(--s3);
-  }
-  .skill-badge {
-    display: inline-block;
-    background: rgba(0,77,77,0.12); border: 1px solid rgba(0,77,77,0.12);
-    color: #FDFBF7; font-size: var(--text-caption); font-weight: 700;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 3px 10px; border-radius: var(--r-chip); margin-bottom: var(--s1);
-  }
-  .skill-title {
-    font-family: var(--ff-display); font-size: 1.15rem; font-weight: 700;
-    color: #FDFBF7; margin-bottom: 5px;
-  }
-  .skill-desc { font-size: var(--text-body-sm); color: rgba(253,251,247,0.6); line-height: 1.55; max-width: 540px; }
-
-  .skill-body { padding: var(--s3); display: flex; flex-direction: column; gap: var(--s2); }
-  .skill-fields { display: flex; flex-direction: column; gap: var(--s2); }
-  .skill-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); }
-  .skill-field { display: flex; flex-direction: column; gap: 5px; }
-  .skill-label {
-    font-size: var(--text-body-sm); font-weight: 600; color: var(--gray-900);
-    display: flex; align-items: center; gap: 5px;
-  }
-  .skill-hint { font-size: var(--text-caption); font-weight: 400; color: var(--gray-500); font-style: italic; }
-
-  /* inherit input tokens */
-  .skill-input {
-    border: 1.5px solid var(--border); border-radius: var(--r-input);
-    padding: 9px 13px; font-family: var(--ff-body);
-    font-size: var(--text-body-sm); color: var(--gray-900);
-    background: var(--surface-raised); outline: none; width: 100%;
-    transition: border-color 0.18s, box-shadow 0.18s;
-  }
-  .skill-input::placeholder { color: var(--gray-300); }
-  .skill-input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px var(--primary-ring);
-  }
-  .skill-textarea { min-height: 76px; resize: vertical; line-height: 1.5; }
-  select.skill-input { cursor: pointer; }
-
-  /* chip toggle */
-  .skill-toggle-group { display: flex; gap: var(--s1); flex-wrap: wrap; }
-  .skill-toggle {
-    padding: 6px 14px; border-radius: var(--r-chip);
-    border: 1px solid var(--border);
-    background: transparent; font-family: var(--ff-body);
-    font-size: var(--text-body-sm); font-weight: 500; color: var(--gray-700);
-    cursor: pointer; transition: all 0.16s;
-  }
-  .skill-toggle:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
-  .skill-toggle.active { background: var(--primary); border-color: var(--primary); color: #fff; }
-
-  .skill-actions { display: flex; gap: var(--s1); flex-wrap: wrap; align-items: center; }
-
-  /* inherit btn tokens */
-  .skill-btn-primary {
-    padding: 10px 22px; background: var(--primary); color: #fff;
-    border: none; border-radius: var(--r-btn);
-    font-family: var(--ff-body); font-size: var(--text-body-sm); font-weight: 600;
-    cursor: pointer; transition: background 0.18s, transform 0.14s, box-shadow 0.18s;
-    display: flex; align-items: center; gap: 7px;
-    box-shadow: var(--sh-soft);
-  }
-  .skill-btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: var(--sh-floating); }
-  .skill-btn-primary:disabled { background: var(--gray-300); cursor: not-allowed; box-shadow: none; transform: none; }
-
-  .skill-btn-secondary, .skill-btn-copy {
-    padding: 9px 16px; background: transparent; color: var(--gray-700);
-    border: 1px solid var(--border); border-radius: var(--r-btn);
-    font-family: var(--ff-body); font-size: var(--text-body-sm); font-weight: 500;
-    cursor: pointer; transition: all 0.16s;
-  }
-  .skill-btn-secondary:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
-  .skill-btn-copy:hover { border-color: var(--amber); color: var(--amber-dk); background: var(--amber-bg); }
-
-  /* output */
-  .skill-output {
-    border-radius: var(--r-card); border: 1px solid var(--border);
-    background: var(--surface-sunken); overflow: hidden;
-  }
-  .skill-output-inner {
-    padding: var(--s3); font-size: var(--text-body-sm); color: var(--gray-900);
-    line-height: 1.7; white-space: pre-wrap;
-  }
-  .skill-output-inner .story-main {
-    font-family: var(--ff-display); font-size: 1.05rem; font-weight: 700;
-    color: var(--primary); background: var(--primary-light);
-    border-left: 4px solid var(--primary);
-    padding: 13px 17px; border-radius: 0 var(--r-input) var(--r-input) 0;
-    margin-bottom: var(--s2); line-height: 1.4;
-  }
-  .skill-output-inner .story-section-title {
-    font-size: var(--text-caption); font-weight: 700; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--orange); margin: 16px 0 7px;
-  }
-  .skill-output-inner .story-ac-item {
-    display: flex; gap: 9px; margin-bottom: 5px;
-    font-size: var(--text-body-sm); color: var(--gray-700);
-  }
-  .skill-output-inner .story-ac-item::before {
-    content: '✓'; color: var(--primary); font-weight: 700; flex-shrink: 0;
-  }
-  .skill-output-inner .invest-grid {
-    display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 7px;
-  }
-  .skill-output-inner .invest-item {
-    display: flex; align-items: center; gap: 5px;
-    padding: 6px 9px; border-radius: var(--r-input);
-    font-size: var(--text-body-sm); font-weight: 500;
-    background: var(--surface-raised); border: 1px solid var(--border);
-  }
-  .invest-ok   { border-color: var(--success-bd) !important; background: var(--success-bg) !important; color: var(--success-txt); }
-  .invest-warn { border-color: var(--warning-bd) !important; background: var(--warning-bg) !important; color: var(--warning-txt); }
-
-  /* 5. Alerts */
-  .skill-error {
-    background: var(--error-bg); border: 1px solid var(--error-bd);
-    border-radius: var(--r-input); padding: 11px 15px;
-    font-size: var(--text-body-sm); color: var(--error-txt);
-  }
-
-  .skill-loader {
-    display: inline-block; width: 13px; height: 13px;
-    border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff;
-    border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 5px;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .typing-cursor::after {
-    content: '▋'; animation: blink 0.8s step-end infinite;
-    color: var(--primary); font-size: 0.88em;
-  }
-  @keyframes blink { 50% { opacity: 0; } }
-
-  /* ════════════════════════════════════════════
-     MANIFESTO ÁGIL
-  ════════════════════════════════════════════ */
-  /* 4 Valores — lado a lado com hierarquia clara */
-  .valor-card {
-    background: var(--surface-raised);
-    border: 1px solid var(--border);
-    border-radius: var(--r-card);
-    overflow: hidden;
-    box-shadow: var(--sh-soft);
-    display: flex;
-    flex-direction: column;
-    transition: box-shadow 0.2s, transform 0.18s;
-  }
-  .valor-card:hover { box-shadow: var(--sh-floating); transform: translateY(-2px); }
-
-  .valor-vs {
-    display: grid;
-    grid-template-columns: 1fr 1px 1fr;
-    min-height: 110px;
-  }
-
-  .valor-lado {
-    padding: var(--s2) var(--s2);
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    justify-content: center;
-  }
-  .valor-lado.left  { background: var(--surface-raised); }
-  .valor-lado.right { background: var(--surface-sunken); }
-
-  .valor-label {
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-  .valor-label.primary-lbl  { color: var(--primary); }
-  .valor-label.secondary-lbl{ color: var(--gray-300); }
-
-  .valor-text {
-    font-family: var(--ff-display);
-    font-weight: 700;
-    line-height: 1.25;
-  }
-  .valor-text.primary-txt   { font-size: 1.05rem; color: var(--primary); }
-  .valor-text.secondary-txt {
-    font-size: 0.88rem; color: var(--gray-300);
-    text-decoration: line-through;
-    text-decoration-color: var(--border);
-  }
-
-  .valor-divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--border);
-    width: 1px;
-    position: relative;
-  }
-  .valor-divider span {
-    position: absolute;
-    background: var(--border);
-    color: var(--gray-500);
-    font-size: 0.55rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    writing-mode: vertical-rl;
-    padding: 6px 3px;
-    border-radius: 4px;
-    white-space: nowrap;
-  }
-
-  .valor-po-tip {
-    background: var(--primary-light);
-    border-top: 1px solid rgba(0,77,77,0.12);
-    padding: 10px var(--s2);
-    font-size: var(--text-body-sm);
-    color: var(--primary);
-    line-height: 1.55;
-  }
-  .valor-po-tip strong { font-weight: 700; }
-
-  /* 12 Princípios */
-  .principios-grupo {
-    margin-bottom: var(--s3);
-  }
-  .principios-grupo-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: var(--s2);
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border);
-  }
-  .principios-grupo-icon {
-    width: 40px; height: 40px;
-    border-radius: var(--r-card);
-    background: var(--primary);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem;
-    flex-shrink: 0;
-  }
-  .principios-grupo-title {
-    font-family: var(--ff-display);
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--gray-900);
-  }
-  .principios-grupo-sub {
-    font-size: var(--text-caption);
-    color: var(--gray-500);
-    margin-top: 2px;
-  }
-
-  .principio-item {
-    background: var(--surface-raised);
-    border: 1px solid var(--border);
-    border-radius: var(--r-card);
-    overflow: hidden;
-    margin-bottom: 10px;
-    transition: box-shadow 0.2s;
-  }
-  .principio-item:hover { box-shadow: var(--sh-soft); }
-
-  .principio-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: var(--s2);
-    cursor: pointer;
-    user-select: none;
-  }
-  .principio-num {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: var(--surface-sunken);
-    border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: var(--text-caption);
-    font-weight: 700;
-    font-family: var(--ff-mono);
-    color: var(--gray-500);
-    flex-shrink: 0;
-  }
-  .principio-frase {
-    flex: 1;
-    font-size: var(--text-body-sm);
-    font-weight: 600;
-    color: var(--gray-900);
-    line-height: 1.45;
-    padding-top: 4px;
-  }
-  .principio-toggle {
-    font-size: 0.7rem;
-    color: var(--gray-300);
-    padding-top: 6px;
-    flex-shrink: 0;
-    transition: transform 0.2s;
-  }
-  .principio-item.open .principio-toggle { transform: rotate(180deg); }
-
-  .principio-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.28s ease;
-  }
-  .principio-item.open .principio-body { max-height: 200px; }
-
-  .principio-aplicacao {
-    padding: 0 var(--s2) var(--s2) calc(var(--s2) + 28px + 14px);
-    font-size: var(--text-body-sm);
-    color: var(--gray-700);
-    line-height: 1.6;
-    border-top: 1px solid var(--surface-sunken);
-    padding-top: 10px;
-  }
-  .principio-aplicacao strong { color: var(--primary); font-weight: 600; }
-
-  /* ════════════════════════════════════════════
+  /* ═══════════════════════════════════════════
      RESPONSIVE
-  ════════════════════════════════════════════ */
+  ═══════════════════════════════════════════ */
   @media (max-width: 900px) {
     #sidebar { transform: translateX(-100%); }
     #sidebar.open { transform: translateX(0); }
     #main { margin-left: 0; }
     footer { margin-left: 0; }
     #menu-toggle { display: flex; }
-    .hero { padding: 64px var(--s2) var(--s4); }
-    .content-area { padding: 0 var(--s2) var(--s5); }
-    .grid-2, .grid-3 { grid-template-columns: 1fr; }
-    .special-section { padding: var(--s3); }
+    .hero { padding: 64px var(--s3) var(--s5); }
+    .content-area { padding: 0 var(--s3) var(--s6); }
+    .grid-2, .grid-3, .bento-grid, .praticas-grid { grid-template-columns: 1fr; }
+    .bento-cell, .bento-cell-wide, .bento-cell-full { grid-column: span 1; }
+    .special-section { padding: var(--s4); }
     .skill-row { grid-template-columns: 1fr; }
     .skill-output-inner .invest-grid { grid-template-columns: repeat(2,1fr); }
+    .valor-vs { grid-template-columns: 1fr; }
+    .valor-divider { display: none; }
   }
 </style>
 </head>
@@ -923,14 +812,13 @@
       <a class="nav-link" href="#insp-descoberta">Descoberta de Produto</a>
       <a class="nav-link" href="#insp-stakeholders">Stakeholders</a>
       <a class="nav-link" href="#insp-cultura">Cultura</a>
-      <a class="nav-link" href="#insp-perfis">Perfis Reais de PMs</a>
     </div>
   </div>
 
   <!-- ── BOOK 2 accordion ── -->
   <div class="nav-accordion" id="acc-scrum">
     <button class="nav-book-btn book-orange open" onclick="toggleAcc('scrum')">
-      <span class="nav-book-dot" style="background:#004D4D"></span>
+      <span class="nav-book-dot" style="background:var(--warning)"></span>
       <span class="nav-book-title">Scrum</span>
       <span class="nav-book-author">Jeff Sutherland</span>
       <svg class="acc-arrow" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -961,7 +849,7 @@
 <section class="hero">
   <div class="hero-badge">📚 Síntese de 2 Livros Fundamentais</div>
   <h1>Guia de <span>Boas Práticas</span> PO/PM</h1>
-  <p class="hero-desc">Guia completo de boas práticas extraídas de <em>Inspirado</em> (Marty Cagan) e <em>Scrum</em> (Jeff Sutherland) — condensadas para o Product Owner que quer criar produtos que clientes amam e times que entregam.</p>
+  <p class="hero-desc">Guia completo de boas práticas extraídas de <em>Inspirado</em> (Marty Cagan) e <em>Scrum</em> (Jeff Sutherland) condensadas para o Product Owner que quer criar produtos que clientes amam e times que entregam.</p>
   <div class="hero-books">
     <a class="hero-book-pill" href="#insp-contexto">
       <span class="dot" style="background:var(--amber)"></span>
@@ -989,7 +877,7 @@
 
   <div class="highlight-box">
     <p class="quote">"Por trás de todo grande produto existe alguém que levou a equipe a combinar tecnologia e design para resolver problemas reais dos clientes de uma forma que atende às necessidades do negócio."</p>
-    <p class="quote-attr">— Marty Cagan, Inspirado, Cap. 1</p>
+    <p class="quote-attr">  Marty Cagan, Inspirado, Cap. 1</p>
   </div>
 
   <div class="grid-3">
@@ -1022,16 +910,16 @@
       <h3>Manter a Inovação Consistente</h3>
       <p>Grandes empresas entram em uma espiral de captura de valor, parando de criar valor novo. O PO precisa ser agente ativo de inovação.</p>
       <ul class="practice-list">
-        <li><strong>Não só otimize</strong> — crie valor genuinamente novo</li>
+        <li><strong>Não só otimize</strong> crie valor genuinamente novo</li>
         <li><strong>Empodere os times:</strong> não apenas entregue roadmaps</li>
         <li><strong>Questione o status quo</strong> constantemente</li>
-        <li><strong>Benchmarke com Amazon, Netflix, Google</strong> — grandes e inovadoras</li>
+        <li><strong>Benchmarke com Amazon, Netflix, Google</strong> grandes e inovadoras</li>
       </ul>
     </div>
   </div>
 
   <div class="card card-accent-forest">
-    <h3>📌 Boas práticas universais — qualquer estágio</h3>
+    <h3>📌 Boas práticas universais qualquer estágio</h3>
     <ul class="practice-list">
       <li>O PO é o responsável pelo <strong>sucesso do produto</strong>, não pela entrega de funcionalidades</li>
       <li>Um produto movido à tecnologia inclui UX, monetização, aquisição de usuários <strong>e</strong> funcionalidades</li>
@@ -1050,16 +938,16 @@
   <div class="card card-accent-orange card-orange">
     <h3>⚠️ Top 10 erros do modelo cascata que o PO deve combater</h3>
     <ul class="practice-list orange">
-      <li><strong>Ideias dos stakeholders viram requisitos</strong> sem validação — equipe vira mercenária</li>
+      <li><strong>Ideias dos stakeholders viram requisitos</strong> sem validação equipe vira mercenária</li>
       <li><strong>Casos de negócio falsos:</strong> ninguém sabe quanto vai gerar ou custar de verdade</li>
       <li><strong>Roadmaps de funcionalidades</strong> em vez de objetivos de negócio</li>
-      <li><strong>Gestão de produto = coleta de requisitos</strong> — longe de ser real gestão de produto</li>
-      <li><strong>Design entra tarde demais</strong> — vira "tapa no visual"</li>
-      <li><strong>Engenheiros são chamados só para codar</strong> — perde metade do valor deles</li>
+      <li><strong>Gestão de produto = coleta de requisitos</strong> longe de ser real gestão de produto</li>
+      <li><strong>Design entra tarde demais</strong> vira "tapa no visual"</li>
+      <li><strong>Engenheiros são chamados só para codar</strong> perde metade do valor deles</li>
       <li><strong>Agile só na entrega,</strong> não na descoberta</li>
-      <li><strong>Foco em projetos,</strong> não em resultados — projetos órfãos abundam</li>
-      <li><strong>Validação com clientes só no final</strong> — custo astronômico de erro</li>
-      <li><strong>Metade das ideias não funcionará</strong> — e as que funcionam precisam de múltiplas iterações</li>
+      <li><strong>Foco em projetos,</strong> não em resultados projetos órfãos abundam</li>
+      <li><strong>Validação com clientes só no final</strong> custo astronômico de erro</li>
+      <li><strong>Metade das ideias não funcionará</strong> e as que funcionam precisam de múltiplas iterações</li>
     </ul>
   </div>
 
@@ -1068,7 +956,7 @@
       <h3>Os 3 Princípios das Melhores Equipes</h3>
       <ul class="practice-list">
         <li><strong>Riscos abordados no início:</strong> valor, usabilidade, viabilidade técnica e de negócio</li>
-        <li><strong>Produto definido colaborativamente:</strong> PM + Designer + Engenheiro — lado a lado</li>
+        <li><strong>Produto definido colaborativamente:</strong> PM + Designer + Engenheiro lado a lado</li>
         <li><strong>Foco em resolver problemas,</strong> não em implementar funcionalidades</li>
       </ul>
     </div>
@@ -1084,14 +972,14 @@
 
   <div class="highlight-box">
     <p class="quote">"Além de Lean e Agile: riscos são abordados com antecedência; produtos são definidos colaborativamente; o foco é em resolver problemas, não em implementar funcionalidades."</p>
-    <p class="quote-attr">— Marty Cagan, Inspirado, Cap. 7</p>
+    <p class="quote-attr">  Marty Cagan, Inspirado, Cap. 7</p>
   </div>
 </section>
 
 <!-- ── CAP 9–14: PESSOAS ───────────────────────── -->
 <section class="section" id="insp-pessoas">
   <div class="section-book-tag tag-inspirado">📘 Inspirado · Cap. 9–14</div>
-  <h2 class="section-title">As Pessoas Certas — Como o PO Colabora</h2>
+  <h2 class="section-title">As Pessoas Certas Como o PO Colabora</h2>
   <p class="section-subtitle">Times de produto fortes, o papel do PM, designer e engenheiros</p>
   <div class="divider"></div>
 
@@ -1099,7 +987,7 @@
     <h3>Princípios de Times de Produto Fortes</h3>
     <div class="grid-2">
       <ul class="practice-list">
-        <li><strong>Equipes de missionários,</strong> não mercenários — acreditam na visão</li>
+        <li><strong>Equipes de missionários,</strong> não mercenários acreditam na visão</li>
         <li><strong>Time multidisciplinar:</strong> PM + Designer + 2–10 Engenheiros</li>
         <li><strong>Sem hierarquia interna:</strong> o PM não é chefe de ninguém</li>
         <li><strong>Autônomos e responsáveis</strong> por resultados de negócio</li>
@@ -1114,7 +1002,7 @@
   </div>
 
   <div class="card card-accent-left" style="margin-bottom:20px">
-    <h3>O PM que se destaca — 4 contribuições obrigatórias</h3>
+    <h3>O PM que se destaca 4 contribuições obrigatórias</h3>
     <div class="grid-2">
       <div>
         <ul class="practice-list">
@@ -1135,10 +1023,10 @@
     <div class="card card-accent-left">
       <h3>Como trabalhar com o Designer</h3>
       <ul class="practice-list">
-        <li>Sente o designer <strong>ao seu lado</strong> — literalmente</li>
+        <li>Sente o designer <strong>ao seu lado</strong> literalmente</li>
         <li>Inclua-o <strong>desde o início</strong> de cada ideia</li>
         <li>Leve-o a <strong>todas as interações com usuários</strong></li>
-        <li><strong>Não dite soluções de design</strong> — dê espaço criativo</li>
+        <li><strong>Não dite soluções de design</strong> dê espaço criativo</li>
         <li>Encoraje iterações rápidas e exploração de alternativas</li>
         <li>UX holístico: toda jornada, todo ponto de contato</li>
       </ul>
@@ -1146,8 +1034,8 @@
     <div class="card card-accent-left">
       <h3>Como trabalhar com Engenheiros</h3>
       <ul class="practice-list">
-        <li><strong>Engenheiros são a melhor fonte de inovação</strong> — inclua-os desde a descoberta</li>
-        <li>Compartilhe a dor do cliente — não os proteja das dificuldades</li>
+        <li><strong>Engenheiros são a melhor fonte de inovação</strong> inclua-os desde a descoberta</li>
+        <li>Compartilhe a dor do cliente não os proteja das dificuldades</li>
         <li><strong>Não diga como fazer,</strong> diga o problema a resolver</li>
         <li>Envolva o líder técnico na descoberta diariamente</li>
         <li>Aprenda programação básica: melhora muito a colaboração</li>
@@ -1160,7 +1048,7 @@
     <h3>O PM não é gerente de projetos. O PM é o CEO do produto.</h3>
     <ul class="practice-list orange">
       <li>Quando o produto fracassa, a culpa é do PM. Quando tem sucesso, o time celebra junto.</li>
-      <li>PM não é Product Owner apenas no sentido Scrum — é muito mais: estratégia, descoberta, clientes, stakeholders</li>
+      <li>PM não é Product Owner apenas no sentido Scrum é muito mais: estratégia, descoberta, clientes, stakeholders</li>
       <li>PM exige inteligência (curiosidade), criatividade (pensar além de features) e persistência (empurrar contra resistência com evidências)</li>
     </ul>
   </div>
@@ -1169,7 +1057,7 @@
 <!-- ── CAP 22–23: ROADMAPS ─────────────────────── -->
 <section class="section" id="insp-roadmap">
   <div class="section-book-tag tag-inspirado">📘 Inspirado · Cap. 22–23</div>
-  <h2 class="section-title">Problemas com Roadmaps — e a Alternativa</h2>
+  <h2 class="section-title">Problemas com Roadmaps e a Alternativa</h2>
   <p class="section-subtitle">Por que listas de funcionalidades matam a inovação e como substituí-las</p>
   <div class="divider"></div>
 
@@ -1194,8 +1082,8 @@
         <td>Foco em resultado (outcome)</td>
       </tr>
       <tr>
-        <td>Gera times mercenários — "implementadores de roadmap"</td>
-        <td>Gera times missionários — resolvem problemas com autonomia</td>
+        <td>Gera times mercenários "implementadores de roadmap"</td>
+        <td>Gera times missionários resolvem problemas com autonomia</td>
       </tr>
       <tr>
         <td>50–80% das funcionalidades não geram o valor esperado</td>
@@ -1210,14 +1098,14 @@
 
   <div class="highlight-box">
     <p class="quote">"Não é porque nós nos comprometemos com uma entrega em uma data. O recurso deve resolver o problema de negócio. Do contrário, o time precisa tentar uma abordagem diferente."</p>
-    <p class="quote-attr">— Marty Cagan, Cap. 23</p>
+    <p class="quote-attr">  Marty Cagan, Cap. 23</p>
   </div>
 
   <div class="card card-accent-left">
-    <h3>Compromisso de Alta Integridade — quando usar</h3>
+    <h3>Compromisso de Alta Integridade quando usar</h3>
     <ul class="practice-list">
       <li>Só assuma datas quando tiver validado a solução com clientes, engenheiros e stakeholders</li>
-      <li>Peça tempo de descoberta <strong>antes</strong> de comprometer — é seu direito e dever</li>
+      <li>Peça tempo de descoberta <strong>antes</strong> de comprometer é seu direito e dever</li>
       <li>Após a descoberta, comprometa-se com honestidade: "vamos entregar X até Y com resultado Z"</li>
       <li>Gerentes de entrega (delivery managers) acompanham esses compromissos e dependências</li>
     </ul>
@@ -1234,11 +1122,11 @@
   <div class="grid-3">
     <div class="card card-accent-left">
       <h3>Visão de Produto</h3>
-      <p>Descreve o futuro que queremos criar — 2 a 10 anos. É persuasiva, inspiradora, não uma especificação.</p>
+      <p>Descreve o futuro que queremos criar 2 a 10 anos. É persuasiva, inspiradora, não uma especificação.</p>
       <ul class="practice-list">
         <li>Comece pelo <strong>porquê</strong></li>
         <li>Apaixone-se pelo <strong>problema</strong>, não pela solução</li>
-        <li>Pense grande — seja disruptivo</li>
+        <li>Pense grande seja disruptivo</li>
         <li>Atualize tendências relevantes</li>
         <li>Evangelize <strong>incansavelmente</strong></li>
       </ul>
@@ -1258,7 +1146,7 @@
       <h3>Princípios de Produto</h3>
       <p>Falam sobre a natureza dos produtos que queremos criar. Orientam decisões difíceis de design e negócio.</p>
       <ul class="practice-list">
-        <li>Não são features — são valores</li>
+        <li>Não são features são valores</li>
         <li>Exemplo eBay: <em>"Em conflito comprador/vendedor, priorizamos o comprador"</em></li>
         <li>Ajudam qualquer membro do time a tomar decisões alinhadas</li>
       </ul>
@@ -1279,7 +1167,7 @@
         <li>Determine e adote <strong>tendências relevantes</strong></li>
         <li>Vá para onde as coisas <strong>estão caminhando,</strong> não onde estavam</li>
         <li>Seja teimoso com a visão, <strong>flexível nos detalhes</strong></li>
-        <li>Toda visão é um <strong>voto de confiança</strong> — esteja pronto para anos</li>
+        <li>Toda visão é um <strong>voto de confiança</strong> esteja pronto para anos</li>
         <li>Evangelize <strong>contínua e incansavelmente</strong></li>
       </ul>
     </div>
@@ -1289,7 +1177,7 @@
 <!-- ── CAP 28–30: OKRs ─────────────────────────── -->
 <section class="section" id="insp-okr">
   <div class="section-book-tag tag-inspirado">📘 Inspirado · Cap. 28–30</div>
-  <h2 class="section-title">OKRs — Gestão por Objetivos no Produto</h2>
+  <h2 class="section-title">OKRs Gestão por Objetivos no Produto</h2>
   <p class="section-subtitle">Como o PO usa OKRs para empoderar times e medir resultados reais</p>
   <div class="divider"></div>
 
@@ -1298,7 +1186,7 @@
       <h3>Como usar OKRs corretamente</h3>
       <ul class="practice-list">
         <li><strong>Objetivos = qualitativos</strong> (inspiradores, direcionais)</li>
-        <li><strong>Key Results = quantitativos/mensuráveis</strong> — resultados de negócio, não tarefas</li>
+        <li><strong>Key Results = quantitativos/mensuráveis</strong> resultados de negócio, não tarefas</li>
         <li>Nunca: "lançar feature X" como KR. Sempre: "reduzir churn para 3%"</li>
         <li>1–3 Objetivos por time, 1–3 KRs por objetivo</li>
         <li>Rastreamento <strong>semanal</strong> do progresso</li>
@@ -1309,20 +1197,20 @@
       <h3>O que o PO não deve fazer com OKRs</h3>
       <ul class="practice-list orange">
         <li>Não deixe OKRs individuais ou funcionais confundirem o foco do time</li>
-        <li>Não cascade OKRs em silos — cascateie no nível do time de produto</li>
-        <li>Não use OKRs para microgerenciar — dê autonomia para o time descobrir como atingir</li>
+        <li>Não cascade OKRs em silos cascateie no nível do time de produto</li>
+        <li>Não use OKRs para microgerenciar dê autonomia para o time descobrir como atingir</li>
         <li>Não misture compromissos de alta integridade com OKRs aspiracionais sem distingui-los</li>
       </ul>
     </div>
   </div>
 
   <div class="card card-accent-forest">
-    <h3>Escala de pontuação OKR — referência prática</h3>
+    <h3>Escala de pontuação OKR referência prática</h3>
     <ul class="practice-list">
-      <li><strong>0.0</strong> — Praticamente zero progresso</li>
-      <li><strong>0.3</strong> — Fizemos apenas o mínimo que sabíamos ser possível</li>
-      <li><strong>0.7</strong> — Realizamos o que esperávamos alcançar (meta típica)</li>
-      <li><strong>1.0</strong> — Resultado excepcional, além das expectativas — raridade saudável</li>
+      <li><strong>0.0</strong> Praticamente zero progresso</li>
+      <li><strong>0.3</strong> Fizemos apenas o mínimo que sabíamos ser possível</li>
+      <li><strong>0.7</strong> Realizamos o que esperávamos alcançar (meta típica)</li>
+      <li><strong>1.0</strong> Resultado excepcional, além das expectativas raridade saudável</li>
     </ul>
   </div>
 </section>
@@ -1330,13 +1218,13 @@
 <!-- ── CAP 33–56: DESCOBERTA ───────────────────── -->
 <section class="section" id="insp-descoberta">
   <div class="section-book-tag tag-inspirado">📘 Inspirado · Cap. 33–56</div>
-  <h2 class="section-title">Descoberta de Produto — O Coração do PO</h2>
-  <p class="section-subtitle">Técnicas para validar antes de construir — a competência central de qualquer PO</p>
+  <h2 class="section-title">Descoberta de Produto O Coração do PO</h2>
+  <p class="section-subtitle">Técnicas para validar antes de construir a competência central de qualquer PO</p>
   <div class="divider"></div>
 
   <div class="highlight-box">
     <p class="quote">"O propósito da descoberta de produto é separar rapidamente as boas ideias das ruins. Equipes fortes testam 10–20 ideias por semana usando protótipos."</p>
-    <p class="quote-attr">— Marty Cagan, Inspirado, Cap. 33</p>
+    <p class="quote-attr">  Marty Cagan, Inspirado, Cap. 33</p>
   </div>
 
   <div class="card card-accent-left">
@@ -1360,14 +1248,14 @@
         <li><strong>Avaliação de Oportunidade:</strong> Qual objetivo? Qual KR? Qual problema do cliente? Qual mercado-alvo?</li>
         <li><strong>Carta para o Cliente:</strong> Escreva uma carta de um cliente feliz ao CEO descrevendo como o produto mudou sua vida</li>
         <li><strong>Canvas de Startup:</strong> Para produtos/negócios inteiramente novos</li>
-        <li><strong>Story Map:</strong> Atividades do usuário × nível de detalhe — visão holística do sistema</li>
+        <li><strong>Story Map:</strong> Atividades do usuário × nível de detalhe visão holística do sistema</li>
       </ul>
     </div>
     <div class="card card-accent-left">
       <h3>Tipos de Protótipos</h3>
       <ul class="practice-list">
         <li><strong>Viabilidade Técnica (spike):</strong> engenheiros escrevem código mínimo para testar hipótese técnica</li>
-        <li><strong>Protótipo de Usuário (baixa/alta fidelidade):</strong> simulação — o designer cria, nada funciona de verdade</li>
+        <li><strong>Protótipo de Usuário (baixa/alta fidelidade):</strong> simulação o designer cria, nada funciona de verdade</li>
         <li><strong>Dados em Tempo Real:</strong> 5–10% do esforço final, mas com tráfego e dados reais para testar hipóteses de valor</li>
         <li><strong>Híbrido (Mágico de Oz):</strong> front-end real + operação manual nos bastidores</li>
       </ul>
@@ -1375,12 +1263,12 @@
   </div>
 
   <div class="card card-accent-left">
-    <h3>Programa de Descoberta de Cliente — Técnica mais poderosa</h3>
+    <h3>Programa de Descoberta de Cliente Técnica mais poderosa</h3>
     <p>Para produtos B2B: recrute 6–8 clientes do mercado-alvo que estão desesperados pela solução. Trabalhe com eles durante toda a descoberta. Objetivo: 6 clientes de referência = encaixe produto/mercado comprovado.</p>
     <ul class="practice-list">
       <li>Clientes reais, que pagaram dinheiro real, em produção, dispostos a indicar voluntariamente</li>
-      <li>Parceria de co-criação, não customização — produto padrão que funciona muito bem para eles</li>
-      <li>PO precisa estar em <strong>todo teste de valor qualitativo</strong> — não delegue isso</li>
+      <li>Parceria de co-criação, não customização produto padrão que funciona muito bem para eles</li>
+      <li>PO precisa estar em <strong>todo teste de valor qualitativo</strong> não delegue isso</li>
       <li>Frequência mínima: 2–3h de entrevistas/testes por semana, toda semana</li>
     </ul>
   </div>
@@ -1389,7 +1277,7 @@
     <div class="card card-accent-left">
       <h3>Testando Demanda</h3>
       <ul class="practice-list">
-        <li><strong>Porta Falsa:</strong> botão que leva a uma página "estamos pesquisando este recurso" — meça o clique</li>
+        <li><strong>Porta Falsa:</strong> botão que leva a uma página "estamos pesquisando este recurso" meça o clique</li>
         <li><strong>Landing Page de Demanda:</strong> descreva o produto como se fosse real, meça conversão</li>
       </ul>
     </div>
@@ -1398,14 +1286,14 @@
       <ul class="practice-list">
         <li>Entrevista → Teste de usabilidade → Teste de valor</li>
         <li>Use dinheiro, reputação, tempo ou acesso como prova de valor</li>
-        <li>Itere o protótipo entre sessões — não trave em versões</li>
+        <li>Itere o protótipo entre sessões não trave em versões</li>
       </ul>
     </div>
     <div class="card card-accent-left">
       <h3>Testando Valor Quantitativo</h3>
       <ul class="practice-list">
         <li><strong>Teste A/B</strong> com protótipo de dados em tempo real (1% do tráfego)</li>
-        <li><strong>Teste somente por convite</strong> — grupo controlado, dados reais</li>
+        <li><strong>Teste somente por convite</strong> grupo controlado, dados reais</li>
         <li>Quanti mostra o <strong>o quê;</strong> quali mostra o <strong>porquê</strong></li>
       </ul>
     </div>
@@ -1415,18 +1303,18 @@
     <h3>10 Princípios da Descoberta de Produto</h3>
     <div class="grid-2">
       <ul class="practice-list">
-        <li>Clientes <strong>não sabem o que é possível</strong> — não os peça para definir a solução</li>
+        <li>Clientes <strong>não sabem o que é possível</strong> não os peça para definir a solução</li>
         <li>O mais difícil é estabelecer <strong>valor persuasivo</strong></li>
         <li>UX é geralmente mais crítico que a funcionalidade em si</li>
         <li>Funcionalidade, design e tecnologia são <strong>inerentemente interligados</strong></li>
-        <li>A maioria das ideias <strong>não funcionará</strong> — suposição base</li>
+        <li>A maioria das ideias <strong>não funcionará</strong> suposição base</li>
       </ul>
       <ul class="practice-list">
         <li>Valide com <strong>clientes e usuários reais,</strong> não com personas teóricas</li>
         <li>Meta da descoberta: <strong>aprender mais rápido e mais barato possível</strong></li>
         <li>Valide viabilidade técnica <strong>durante</strong> a descoberta, não depois</li>
         <li>Valide viabilidade de negócio <strong>durante</strong> a descoberta, não depois</li>
-        <li>Descoberta é <strong>aprendizado compartilhado</strong> — PM + Designer + Engenheiro juntos</li>
+        <li>Descoberta é <strong>aprendizado compartilhado</strong> PM + Designer + Engenheiro juntos</li>
       </ul>
     </div>
   </div>
@@ -1452,7 +1340,7 @@
         <li>Convença-os de que você entende as restrições deles <strong>e</strong> está comprometido a resolvê-las</li>
         <li>Valide soluções com eles <strong>durante a descoberta,</strong> não depois</li>
         <li>Prefira reuniões individuais com <strong>protótipos de alta fidelidade</strong> em vez de apresentações PowerPoint</li>
-        <li>Mude de opinião vs. opinião para <strong>evidência vs. opinião</strong> — execute testes</li>
+        <li>Mude de opinião vs. opinião para <strong>evidência vs. opinião</strong> execute testes</li>
         <li>Reserve 2–3h/semana para reuniões individuais com stakeholders-chave</li>
       </ul>
     </div>
@@ -1462,7 +1350,7 @@
         <li>VP de produto deve dedicar <strong>15–30 min em reunião geral</strong> quinzenal para compartilhar aprendizados</li>
         <li>Cobertura: o que funcionou, o que não funcionou, o que testar a seguir</li>
         <li>Transparência constrói confiança e alinha a empresa com o produto</li>
-        <li>Não são relatórios extensos — são aprendizados rápidos e práticos</li>
+        <li>Não são relatórios extensos são aprendizados rápidos e práticos</li>
         <li>Culturalmente demonstra que descoberta é responsabilidade de todos</li>
       </ul>
     </div>
@@ -1472,7 +1360,7 @@
 <!-- ── CAP 64–67: CULTURA ──────────────────────── -->
 <section class="section" id="insp-cultura">
   <div class="section-book-tag tag-inspirado">📘 Inspirado · Cap. 64–67</div>
-  <h2 class="section-title">Cultura de Produto — Times Bons vs. Ruins</h2>
+  <h2 class="section-title">Cultura de Produto Times Bons vs. Ruins</h2>
   <p class="section-subtitle">O PO como agente de cultura e inovação consistente</p>
   <div class="divider"></div>
 
@@ -1486,7 +1374,7 @@
     <tbody>
       <tr>
         <td>Visão persuasiva com paixão missionária</td>
-        <td>Time mercenário — implementa o que pedem</td>
+        <td>Time mercenário implementa o que pedem</td>
       </tr>
       <tr>
         <td>Inspiração vem da visão, dados e contato com clientes</td>
@@ -1528,71 +1416,27 @@
   </table>
 
   <div class="card card-accent-left">
-    <h3>Principais razões para perder inovação — o PO deve combater</h3>
+    <h3>Principais razões para perder inovação o PO deve combater</h3>
     <div class="grid-2">
       <ul class="practice-list">
         <li>Falta de <strong>cultura centrada no cliente</strong></li>
         <li>Ausência de <strong>visão de produto persuasiva</strong></li>
         <li>Estratégia de produto <strong>sem foco</strong> (tentar agradar todos)</li>
         <li>Falta de <strong>GPs fortes</strong> no time</li>
-        <li>Times <strong>instáveis</strong> — rotatividade destrói conhecimento</li>
+        <li>Times <strong>instáveis</strong> rotatividade destrói conhecimento</li>
       </ul>
       <ul class="practice-list">
         <li>Engenheiros <strong>não participam da descoberta</strong></li>
         <li>Falta de <strong>coragem corporativa</strong> para arriscar</li>
         <li>Times voltando a ser <strong>entregadores de roadmap</strong></li>
         <li>Mindset de TI: times para servir o negócio, não o cliente</li>
-        <li>Times sem <strong>tempo para inovar</strong> — só "luzes acesas"</li>
+        <li>Times sem <strong>tempo para inovar</strong> só "luzes acesas"</li>
       </ul>
     </div>
   </div>
 </section>
 
 <!-- ── PERFIS ───────────────────────────────────── -->
-<section class="section" id="insp-perfis">
-  <div class="section-book-tag tag-inspirado">📘 Inspirado · Perfis Reais</div>
-  <h2 class="section-title">Perfis de PMs que Fizeram História</h2>
-  <p class="section-subtitle">Casos reais de gerentes de produto que criaram produtos icônicos</p>
-  <div class="divider"></div>
-
-  <div class="grid-2">
-    <div class="profile-card">
-      <div class="profile-icon">🌐</div>
-      <div class="profile-body">
-        <h4>Jane Manning — Google AdWords</h4>
-        <div class="profile-role">Google · 2000</div>
-        <p>Criou o Google AdWords enfrentando resistência de vendas e engenharia. Sentou com cada stakeholder para entender restrições, depois encontrou uma solução que atendia a todos. Escreveu a primeira spec do AdWords. Produto que gerou &gt;$60 bilhões por ano. <strong>Lição: liderança sem autoridade, superando objeções com evidências e persistência.</strong></p>
-      </div>
-    </div>
-
-    <div class="profile-card">
-      <div class="profile-icon">🎬</div>
-      <div class="profile-body">
-        <h4>Kate Arnold — Netflix</h4>
-        <div class="profile-role">Netflix · 1999</div>
-        <p>Com a Netflix à beira da falência, Kate liderou a criação do modelo de assinatura, da fila, do sistema de avaliação e do mecanismo de recomendação em apenas 3 meses. Resolveu um problema de negócio crítico com tecnologia. <strong>Lição: tecnologia como alavanca para novos modelos de negócio — o PO como solucionador de problemas impossíveis.</strong></p>
-      </div>
-    </div>
-
-    <div class="profile-card">
-      <div class="profile-icon">🍎</div>
-      <div class="profile-body">
-        <h4>Lea Hickman — Adobe Creative Cloud</h4>
-        <div class="profile-role">Adobe · 2011</div>
-        <p>Liderou a transição de um negócio de $2 bilhões (licenças desktop) para assinatura (Creative Cloud). Teve que convencer Finanças, Engenharia, Vendas e toda a empresa. Usou protótipos persuasivos e comunicação constante. Resultado: &gt;9 milhões de assinantes, Adobe triplicou o valor de mercado. <strong>Lição: visão persuasiva + comunicação incansável = transformação possível.</strong></p>
-      </div>
-    </div>
-
-    <div class="profile-card">
-      <div class="profile-icon">💻</div>
-      <div class="profile-body">
-        <h4>Martina Lauchengco — Microsoft Word para Mac</h4>
-        <div class="profile-role">Microsoft · 1993</div>
-        <p>Após o Word 6.0 para Mac ser um desastre de performance, Martina liderou o Word 6.1 — entregue em 2 meses com carta de desculpas assinada por ela. Focou no que usuários do Mac mais valorizavam (contagem de palavras, atalhos). <strong>Lição: fazer a coisa certa para o cliente mesmo sob enorme pressão.</strong></p>
-      </div>
-    </div>
-  </div>
-</section>
 
 
 <!-- ════════════════════════════════════════════ -->
@@ -1602,13 +1446,13 @@
 <!-- ── SCRUM CAP 1 ─────────────────────────────── -->
 <section class="section" id="scrum-cap1">
   <div class="section-book-tag tag-scrum">🔥 Scrum · Cap. 1</div>
-  <h2 class="section-title">O Mundo Quebrado — Questione o Status Quo</h2>
+  <h2 class="section-title">O Mundo Quebrado Questione o Status Quo</h2>
   <p class="section-subtitle">Por que o método cascata falha e o PO deve ser agente de mudança</p>
   <div class="divider"></div>
 
   <div class="highlight-box">
     <p class="quote">"A diferença não era inteligência, tecnologia ou ética no trabalho. Era a maneira como as pessoas trabalhavam. A maneira como a maioria das pessoas trabalha."</p>
-    <p class="quote-attr">— Jeff Sutherland, Scrum, Cap. 1</p>
+    <p class="quote-attr">  Jeff Sutherland, Scrum, Cap. 1</p>
   </div>
 
   <div class="grid-2">
@@ -1627,7 +1471,7 @@
         <li>$405M gastos com cascata → 50% do projeto entregue, 1 ano de atraso</li>
         <li>Refeito com Scrum: 40 devs → entregue em 20 meses, $20M restantes</li>
         <li><strong>Demonstrações quinzenais</strong> foram a chave: produto real, todo sprint</li>
-        <li>Scrum não é sobre desenvolvedores — é sobre clientes e stakeholders</li>
+        <li>Scrum não é sobre desenvolvedores é sobre clientes e stakeholders</li>
       </ul>
     </div>
   </div>
@@ -1636,7 +1480,7 @@
 <!-- ── SCRUM CAP 2 ─────────────────────────────── -->
 <section class="section" id="scrum-cap2">
   <div class="section-book-tag tag-scrum">🔥 Scrum · Cap. 2</div>
-  <h2 class="section-title">Origens — Inspecionar e Adaptar Continuamente</h2>
+  <h2 class="section-title">Origens Inspecionar e Adaptar Continuamente</h2>
   <p class="section-subtitle">PDCA, equipes que aprendem e o conceito de Shu Ha Ri para o PO</p>
   <div class="divider"></div>
 
@@ -1646,18 +1490,18 @@
       <ul class="practice-list orange">
         <li><strong>Plan:</strong> planeje o próximo sprint com base nos dados reais</li>
         <li><strong>Do:</strong> execute com foco, sem multitarefa</li>
-        <li><strong>Check:</strong> inspecione o resultado — funcionou? O que aprendemos?</li>
+        <li><strong>Check:</strong> inspecione o resultado funcionou? O que aprendemos?</li>
         <li><strong>Act:</strong> mude o processo, não só o produto</li>
         <li>Resultado: equipes entre 2x e 8x mais produtivas com ciclos contínuos</li>
       </ul>
     </div>
     <div class="card card-accent-orange card-orange">
-      <h3>Shu Ha Ri — A jornada do PO</h3>
+      <h3>Shu Ha Ri A jornada do PO</h3>
       <ul class="practice-list orange">
-        <li><strong>Shu:</strong> aprenda as regras e formas sem desvios — internalize o básico</li>
-        <li><strong>Ha:</strong> quando dominar, inove — adicione seu estilo às práticas</li>
-        <li><strong>Ri:</strong> descarte as formas — aja de dentro para fora, tudo está internalizado</li>
-        <li>Não pule etapas — o domínio vem da prática consistente</li>
+        <li><strong>Shu:</strong> aprenda as regras e formas sem desvios internalize o básico</li>
+        <li><strong>Ha:</strong> quando dominar, inove adicione seu estilo às práticas</li>
+        <li><strong>Ri:</strong> descarte as formas aja de dentro para fora, tudo está internalizado</li>
+        <li>Não pule etapas o domínio vem da prática consistente</li>
       </ul>
     </div>
   </div>
@@ -1666,7 +1510,7 @@
 <!-- ── SCRUM CAP 3 ─────────────────────────────── -->
 <section class="section" id="scrum-cap3">
   <div class="section-book-tag tag-scrum">🔥 Scrum · Cap. 3</div>
-  <h2 class="section-title">Equipes — O PO que Constrói Times Excepcionais</h2>
+  <h2 class="section-title">Equipes O PO que Constrói Times Excepcionais</h2>
   <p class="section-subtitle">Transcendência, autonomia e interfuncionalidade como base</p>
   <div class="divider"></div>
 
@@ -1674,16 +1518,16 @@
     <h3>3 Características de Times que Mudam o Mundo</h3>
     <div class="grid-3">
       <div>
-        <p style="color:#004D4D;font-weight:700;margin-bottom:8px">1. Transcendência</p>
-        <p style="font-size:0.85rem;color:#454545">Senso de propósito maior que o individual. Não desenvolvem features — estão criando algo significativo. O PO é responsável por manter esse propósito vivo.</p>
+        <p style="color:var(--accent);font-weight:700;margin-bottom:8px">1. Transcendência</p>
+        <p style="font-size:0.85rem;color:#454545">Senso de propósito maior que o individual. Não desenvolvem features estão criando algo significativo. O PO é responsável por manter esse propósito vivo.</p>
       </div>
       <div>
-        <p style="color:#004D4D;font-weight:700;margin-bottom:8px">2. Autonomia</p>
-        <p style="font-size:0.85rem;color:#454545">O time decide como fazer o trabalho. O PO define o quê e o porquê — nunca o como. Microgerenciar destrói a autonomia.</p>
+        <p style="color:var(--accent);font-weight:700;margin-bottom:8px">2. Autonomia</p>
+        <p style="font-size:0.85rem;color:#454545">O time decide como fazer o trabalho. O PO define o quê e o porquê nunca o como. Microgerenciar destrói a autonomia.</p>
       </div>
       <div>
-        <p style="color:#004D4D;font-weight:700;margin-bottom:8px">3. Interfuncionalidade</p>
-        <p style="font-size:0.85rem;color:#454545">O time tem todas as habilidades para concluir o projeto do início ao fim. Não há transferência entre equipes — cada transfer é um risco de desastre.</p>
+        <p style="color:var(--accent);font-weight:700;margin-bottom:8px">3. Interfuncionalidade</p>
+        <p style="font-size:0.85rem;color:#454545">O time tem todas as habilidades para concluir o projeto do início ao fim. Não há transferência entre equipes cada transfer é um risco de desastre.</p>
       </div>
     </div>
   </div>
@@ -1692,17 +1536,17 @@
     <div class="card card-accent-orange card-orange">
       <h3>Tamanho do Time</h3>
       <ul class="practice-list orange">
-        <li><strong>Ideal: 7 pessoas (±2)</strong> — mais que 9 e a velocidade cai</li>
+        <li><strong>Ideal: 7 pessoas (±2)</strong> mais que 9 e a velocidade cai</li>
         <li>Mais membros = mais canais de comunicação = mais lentidão</li>
-        <li>Fórmula: n(n-1)/2 canais — com 9 pessoas: 36 canais</li>
+        <li>Fórmula: n(n-1)/2 canais com 9 pessoas: 36 canais</li>
         <li>"Regra das duas pizzas": se não cabe com duas pizzas, é grande demais</li>
         <li>Grupos de 3–7 pessoas precisam de 25% menos esforço que grupos de 9–12</li>
       </ul>
     </div>
     <div class="card card-accent-orange card-orange">
-      <h3>O Mestre Scrum — como o PO colabora</h3>
+      <h3>O Mestre Scrum como o PO colabora</h3>
       <ul class="practice-list orange">
-        <li>Scrum Master é facilitador, não gerente — remove obstáculos</li>
+        <li>Scrum Master é facilitador, não gerente remove obstáculos</li>
         <li>PO e SM são papéis distintos e complementares</li>
         <li>SM pergunta: "Como podemos trabalhar melhor?" a cada sprint</li>
         <li>PO pergunta: "Estamos trabalhando nas coisas certas?" a cada sprint</li>
@@ -1715,7 +1559,7 @@
 <!-- ── SCRUM CAP 4 ─────────────────────────────── -->
 <section class="section" id="scrum-cap4">
   <div class="section-book-tag tag-scrum">🔥 Scrum · Cap. 4</div>
-  <h2 class="section-title">Tempo — Sprints e Ritmo de Trabalho</h2>
+  <h2 class="section-title">Tempo Sprints e Ritmo de Trabalho</h2>
   <p class="section-subtitle">Como o PO usa sprints, reunião diária e demonstrações para acelerar</p>
   <div class="divider"></div>
 
@@ -1735,7 +1579,7 @@
       <ul class="practice-list orange">
         <li>Máximo 15 minutos, de pé, mesmo horário</li>
         <li>3 perguntas: o que fez? O que vai fazer? Quais impedimentos?</li>
-        <li>Não é relatório — é sincronização de time</li>
+        <li>Não é relatório é sincronização de time</li>
         <li>SM remove os impedimentos identificados</li>
         <li>PO participa para ouvir e remover obstáculos de negócio</li>
       </ul>
@@ -1744,7 +1588,7 @@
       <h3>Review e Retrospectiva</h3>
       <ul class="practice-list orange">
         <li><strong>Review:</strong> demonstre o que foi feito para stakeholders e clientes</li>
-        <li>Apenas "feito" pode ser demonstrado — não "90% pronto"</li>
+        <li>Apenas "feito" pode ser demonstrado não "90% pronto"</li>
         <li><strong>Retrospectiva:</strong> o que melhorar no próximo sprint?</li>
         <li>Uma melhoria concreta por sprint = kaizen contínuo</li>
         <li>Medir velocidade: pontos entregues por sprint</li>
@@ -1753,8 +1597,8 @@
   </div>
 
   <div class="card card-accent-orange card-orange">
-    <h3>Quadro Scrum — Transparência Total</h3>
-    <p>Colunas: <strong>Backlog → A Fazer → Fazendo → Feito.</strong> Qualquer pessoa entra na sala e sabe exatamente onde está o sprint. Isso não é ferramenta — é cultura de transparência radical.</p>
+    <h3>Quadro Scrum Transparência Total</h3>
+    <p>Colunas: <strong>Backlog → A Fazer → Fazendo → Feito.</strong> Qualquer pessoa entra na sala e sabe exatamente onde está o sprint. Isso não é ferramenta é cultura de transparência radical.</p>
   </div>
 </section>
 
@@ -1770,10 +1614,10 @@
       <h3>7 Desperdícios que o PO deve eliminar</h3>
       <ul class="practice-list orange">
         <li><strong>Multitarefa:</strong> cada troca de contexto custa 20–75% de produtividade</li>
-        <li><strong>Metade feito:</strong> carro pela metade não tem valor — só conclua coisas que podem ser usadas</li>
+        <li><strong>Metade feito:</strong> carro pela metade não tem valor só conclua coisas que podem ser usadas</li>
         <li><strong>Retrabalho:</strong> bug corrigido 3 semanas depois custa 24× mais que no mesmo dia</li>
-        <li><strong>Trabalho demais:</strong> depois de 40h/semana, produtividade cai — não aumenta</li>
-        <li><strong>Irracionalidade:</strong> metas impossíveis desanimam — metas desafiadoras motivam</li>
+        <li><strong>Trabalho demais:</strong> depois de 40h/semana, produtividade cai não aumenta</li>
+        <li><strong>Irracionalidade:</strong> metas impossíveis desanimam metas desafiadoras motivam</li>
         <li><strong>Heroísmo constante:</strong> se precisa de herói, o planejamento falhou</li>
         <li><strong>Diretrizes idiotas:</strong> burocracia, formulários e reuniões sem valor</li>
       </ul>
@@ -1804,30 +1648,30 @@
 
   <div class="grid-2">
     <div class="card card-accent-orange card-orange">
-      <h3>O Cone da Incerteza — por que estimativas falham</h3>
+      <h3>O Cone da Incerteza por que estimativas falham</h3>
       <p>No início de um projeto, a estimativa pode errar em 400% para cima ou 25% para baixo. Apenas ao entregar você sabe o real. Implicação: planeje só o suficiente, refine a cada sprint.</p>
       <ul class="practice-list orange">
-        <li>Nunca comprometa datas no início — comprometa após 2–3 sprints de medição</li>
+        <li>Nunca comprometa datas no início comprometa após 2–3 sprints de medição</li>
         <li>Velocidade real do time = melhor preditor de prazo</li>
-        <li>Planeje o suficiente para manter o time ocupado — não anos à frente</li>
+        <li>Planeje o suficiente para manter o time ocupado não anos à frente</li>
       </ul>
     </div>
     <div class="card card-accent-orange card-orange">
       <h3>Estimativas por Tamanho Relativo</h3>
       <ul class="practice-list orange">
         <li>Use <strong>Fibonacci:</strong> 1, 2, 3, 5, 8, 13, 21 story points</li>
-        <li>Não estime em horas — somos péssimos nisso</li>
+        <li>Não estime em horas somos péssimos nisso</li>
         <li>Compare tarefas entre si: "é maior ou menor que essa?"</li>
-        <li><strong>Planning Poker:</strong> todos revelam ao mesmo tempo — evita ancoragem e efeito manada</li>
+        <li><strong>Planning Poker:</strong> todos revelam ao mesmo tempo evita ancoragem e efeito manada</li>
         <li>Só quem vai fazer o trabalho deve estimar</li>
       </ul>
     </div>
   </div>
 
   <div class="card card-accent-orange card-orange">
-    <h3>Histórias de Usuário — o formato correto</h3>
+    <h3>Histórias de Usuário o formato correto</h3>
     <p style="margin-bottom:14px">Formato: <strong>"Como [persona], eu quero [o quê] para [porquê]"</strong></p>
-    <p style="margin-bottom:14px">O porquê é o mais importante — colore toda a implementação e revela motivações ocultas.</p>
+    <p style="margin-bottom:14px">O porquê é o mais importante colore toda a implementação e revela motivações ocultas.</p>
     <ul class="practice-list orange">
       <li>Critério <strong>INVEST:</strong> Independente, Negociável, Valiosa, Estimável, Small (pequena), Testável</li>
       <li><strong>Definição de Pronto (Ready):</strong> a história está clara o suficiente para ser estimada e iniciada?</li>
@@ -1841,7 +1685,7 @@
     <div class="skill-header">
       <span class="skill-badge">✨ Skill Interativa</span>
       <h3 class="skill-title">Gerador de Histórias de Usuário</h3>
-      <p class="skill-desc">Preencha os campos abaixo e o assistente vai criar uma história no formato INVEST, com critérios de aceite e avaliação de qualidade — baseado nos princípios do livro.</p>
+      <p class="skill-desc">Preencha os campos abaixo e o assistente vai criar uma história no formato INVEST, com critérios de aceite e avaliação de qualidade baseado nos princípios do livro.</p>
     </div>
 
     <div class="skill-body">
@@ -1907,18 +1751,18 @@
 <!-- ── SCRUM CAP 7 ─────────────────────────────── -->
 <section class="section" id="scrum-cap7">
   <div class="section-book-tag tag-scrum">🔥 Scrum · Cap. 7</div>
-  <h2 class="section-title">Felicidade — O PO que Cuida do Time</h2>
-  <p class="section-subtitle">Felicidade como indicador de performance futura — e como o PO a cultiva</p>
+  <h2 class="section-title">Felicidade O PO que Cuida do Time</h2>
+  <p class="section-subtitle">Felicidade como indicador de performance futura e como o PO a cultiva</p>
   <div class="divider"></div>
 
   <div class="highlight-box">
     <p class="quote">"Pessoas felizes não são bem-sucedidas porque são felizes. Elas são bem-sucedidas porque são felizes. A felicidade é um indicador do futuro, não resultado do passado."</p>
-    <p class="quote-attr">— Jeff Sutherland, Scrum, Cap. 7</p>
+    <p class="quote-attr">  Jeff Sutherland, Scrum, Cap. 7</p>
   </div>
 
   <div class="grid-2">
     <div class="card card-accent-orange card-orange">
-      <h3>Métrica da Felicidade — como aplicar</h3>
+      <h3>Métrica da Felicidade como aplicar</h3>
       <p>No final de cada sprint, cada pessoa responde:</p>
       <ul class="practice-list orange">
         <li>Em 1–5, como você se sente no seu papel na empresa?</li>
@@ -1936,7 +1780,7 @@
         <li><strong>Propósito:</strong> trabalhar em algo maior que si mesmo</li>
         <li><strong>Transparência:</strong> saber tudo o que está acontecendo</li>
         <li><strong>Sem escrotice:</strong> tolerância zero a comportamentos tóxicos</li>
-        <li><strong>Feedback rápido</strong> e direto — não espere reviews anuais</li>
+        <li><strong>Feedback rápido</strong> e direto não espere reviews anuais</li>
       </ul>
     </div>
   </div>
@@ -1945,7 +1789,7 @@
 <!-- ── SCRUM CAP 8 ─────────────────────────────── -->
 <section class="section" id="scrum-cap8">
   <div class="section-book-tag tag-scrum">🔥 Scrum · Cap. 8</div>
-  <h2 class="section-title">Prioridades — O Papel Central do Product Owner</h2>
+  <h2 class="section-title">Prioridades O Papel Central do Product Owner</h2>
   <p class="section-subtitle">Como o PO decide o que fazer, quando e em que ordem</p>
   <div class="divider"></div>
 
@@ -1954,34 +1798,34 @@
     <div class="grid-2">
       <ul class="practice-list orange">
         <li><strong>Bem-informado do setor:</strong> entende o processo e o mercado o suficiente para traduzir capacidade em valor real</li>
-        <li><strong>Tem poder de decidir:</strong> autonomia para definir a visão e a ordem do backlog — sem precisar de aprovação constante</li>
+        <li><strong>Tem poder de decidir:</strong> autonomia para definir a visão e a ordem do backlog sem precisar de aprovação constante</li>
       </ul>
       <ul class="practice-list orange">
-        <li><strong>Disponível para o time:</strong> responde perguntas, explica o porquê, é consistente e confiável — sem acesso ao PO, o time para</li>
-        <li><strong>Responsável pelo valor:</strong> medido em receita por ponto de esforço — não em features entregues</li>
+        <li><strong>Disponível para o time:</strong> responde perguntas, explica o porquê, é consistente e confiável sem acesso ao PO, o time para</li>
+        <li><strong>Responsável pelo valor:</strong> medido em receita por ponto de esforço não em features entregues</li>
       </ul>
     </div>
   </div>
 
   <div class="grid-2">
     <div class="card card-accent-orange card-orange">
-      <h3>Ciclo OODA — como o PO decide</h3>
+      <h3>Ciclo OODA como o PO decide</h3>
       <ul class="practice-list orange">
-        <li><strong>Observe:</strong> veja o campo todo — dados, clientes, mercado, time</li>
+        <li><strong>Observe:</strong> veja o campo todo dados, clientes, mercado, time</li>
         <li><strong>Oriente:</strong> crie um menu de alternativas baseado no contexto real</li>
         <li><strong>Decida:</strong> escolha rapidamente com as informações disponíveis</li>
-        <li><strong>Aja:</strong> execute e colete feedback — o ciclo recomeça</li>
-        <li>"Aquele que lidar mais rápido com a taxa de mudança, vence." — John Boyd</li>
+        <li><strong>Aja:</strong> execute e colete feedback o ciclo recomeça</li>
+        <li>"Aquele que lidar mais rápido com a taxa de mudança, vence." John Boyd</li>
       </ul>
     </div>
     <div class="card card-accent-orange card-orange">
       <h3>Regra 80/20 do Backlog</h3>
       <ul class="practice-list orange">
         <li>80% do valor está em 20% das funcionalidades</li>
-        <li>Entregue esses 20% primeiro — sempre</li>
+        <li>Entregue esses 20% primeiro sempre</li>
         <li>MVP = mínimo absoluto que entrega valor ao cliente e permite aprendizado</li>
-        <li>"Alterações gratuitas": qualquer item pode ser substituído por outro de tamanho equivalente — foco em valor, não em contrato</li>
-        <li>Às vezes você termina mais cedo: não adicione features apenas para "completar" — lance e siga para o próximo projeto</li>
+        <li>"Alterações gratuitas": qualquer item pode ser substituído por outro de tamanho equivalente foco em valor, não em contrato</li>
+        <li>Às vezes você termina mais cedo: não adicione features apenas para "completar" lance e siga para o próximo projeto</li>
       </ul>
     </div>
   </div>
@@ -1990,18 +1834,18 @@
 <!-- ── SCRUM CAP 9 ─────────────────────────────── -->
 <section class="section" id="scrum-cap9">
   <div class="section-book-tag tag-scrum">🔥 Scrum · Cap. 9</div>
-  <h2 class="section-title">Mude o Mundo — O PO com Propósito Maior</h2>
-  <p class="section-subtitle">Scrum além do software — o PO como agente de transformação</p>
+  <h2 class="section-title">Mude o Mundo O PO com Propósito Maior</h2>
+  <p class="section-subtitle">Scrum além do software o PO como agente de transformação</p>
   <div class="divider"></div>
 
   <div class="card card-accent-orange card-orange">
     <h3>O PO que pensa grande</h3>
     <ul class="practice-list orange">
       <li>Scrum funciona para qualquer domínio: foguetes, jornalismo, construção civil, educação, governo</li>
-      <li>A velocidade de adaptação humana é o limite — e o Scrum maximiza essa velocidade</li>
-      <li>O verdadeiro impacto do PO é criar produtos que melhoram vidas — não entregar sprints</li>
+      <li>A velocidade de adaptação humana é o limite e o Scrum maximiza essa velocidade</li>
+      <li>O verdadeiro impacto do PO é criar produtos que melhoram vidas não entregar sprints</li>
       <li>Equipes que entendem o propósito maior entregam com mais qualidade e velocidade</li>
-      <li>Comece com o mínimo — uma equipe, um backlog, um sprint. O resto cresce orgânicamente.</li>
+      <li>Comece com o mínimo uma equipe, um backlog, um sprint. O resto cresce orgânicamente.</li>
     </ul>
   </div>
 </section>
@@ -2014,14 +1858,14 @@
 <!-- ── ROTINA DIÁRIA ──────────────────────────── -->
 <section class="section" id="destaque-manifesto">
   <div class="section-book-tag tag-special">⭐ Destaque PO</div>
-  <h2 class="section-title">Manifesto Ágil — O que guia tudo</h2>
+  <h2 class="section-title">Manifesto Ágil O que guia tudo</h2>
   <p class="section-subtitle">4 valores e 12 princípios com aplicação prática para o PO/PM no dia a dia</p>
   <div class="divider"></div>
 
   <!-- ── 4 VALORES ── -->
   <div class="card card-accent-forest" style="margin-bottom:var(--s3)">
-    <h3 style="color:var(--primary);margin-bottom:4px">Os 4 Valores</h3>
-    <p style="margin-bottom:var(--s2);color:var(--gray-500)">Valorizamos o item da <strong style="color:var(--primary)">esquerda</strong> mais que o da direita — os itens da direita têm valor, mas os da esquerda têm mais.</p>
+    <h3 style="color:var(--accent);margin-bottom:4px">Os 4 Valores</h3>
+    <p style="margin-bottom:var(--s2);color:var(--gray-500)">Valorizamos o item da <strong style="color:var(--accent)">esquerda</strong> mais que o da direita os itens da direita têm valor, mas os da esquerda têm mais.</p>
     <div class="grid-2">
 
       <div class="valor-card">
@@ -2066,7 +1910,7 @@
             <span class="valor-text secondary-txt">Negociação de contratos</span>
           </div>
         </div>
-        <div class="valor-po-tip"><strong>Para o PO:</strong> Stakeholders não são adversários — são parceiros de descoberta. Envolva-os antes, não depois.</div>
+        <div class="valor-po-tip"><strong>Para o PO:</strong> Stakeholders não são adversários são parceiros de descoberta. Envolva-os antes, não depois.</div>
       </div>
 
       <div class="valor-card">
@@ -2089,7 +1933,7 @@
 
   <!-- ── 12 PRINCÍPIOS ── -->
   <div class="card" style="padding:var(--s3);margin-bottom:0">
-    <h3 style="color:var(--primary);margin-bottom:4px">Os 12 Princípios</h3>
+    <h3 style="color:var(--accent);margin-bottom:4px">Os 12 Princípios</h3>
     <p style="margin-bottom:var(--s3);color:var(--gray-500)">Clique em cada princípio para ver como aplicar no dia a dia. Agrupados em 4 temas.</p>
 
     <!-- GRUPO 1: PRODUTO -->
@@ -2109,14 +1953,14 @@
           <div class="principio-toggle">▼</div>
         </div>
         <div class="principio-body">
-          <div class="principio-aplicacao"><strong>PO na prática:</strong> Entregue algo utilizável a cada sprint, mesmo que pequeno. Valor antecipado gera feedback antecipado — o melhor ciclo possível.</div>
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> Entregue algo utilizável a cada sprint, mesmo que pequeno. Valor antecipado gera feedback antecipado o melhor ciclo possível.</div>
         </div>
       </div>
 
       <div class="principio-item" onclick="togglePrincipio(this)">
         <div class="principio-header">
           <div class="principio-num">03</div>
-          <div class="principio-frase">Entregar software funcionando com frequência — de poucas semanas a poucos meses.</div>
+          <div class="principio-frase">Entregar software funcionando com frequência de poucas semanas a poucos meses.</div>
           <div class="principio-toggle">▼</div>
         </div>
         <div class="principio-body">
@@ -2138,7 +1982,7 @@
       <div class="principio-item" onclick="togglePrincipio(this)">
         <div class="principio-header">
           <div class="principio-num">10</div>
-          <div class="principio-frase">Simplicidade — a arte de maximizar a quantidade de trabalho não realizado — é essencial.</div>
+          <div class="principio-frase">Simplicidade a arte de maximizar a quantidade de trabalho não realizado é essencial.</div>
           <div class="principio-toggle">▼</div>
         </div>
         <div class="principio-body">
@@ -2182,7 +2026,7 @@
       <div class="principio-item" onclick="togglePrincipio(this)">
         <div class="principio-header">
           <div class="principio-num">08</div>
-          <div class="principio-frase">Processos ágeis promovem desenvolvimento sustentável — ritmo constante indefinidamente.</div>
+          <div class="principio-frase">Processos ágeis promovem desenvolvimento sustentável ritmo constante indefinidamente.</div>
           <div class="principio-toggle">▼</div>
         </div>
         <div class="principio-body">
@@ -2197,7 +2041,7 @@
           <div class="principio-toggle">▼</div>
         </div>
         <div class="principio-body">
-          <div class="principio-aplicacao"><strong>PO na prática:</strong> Não microgerencie como fazer — dê o problema e confie no time. Auto-organização gera ownership, e ownership gera qualidade.</div>
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> Não microgerencie como fazer dê o problema e confie no time. Auto-organização gera ownership, e ownership gera qualidade.</div>
         </div>
       </div>
     </div>
@@ -2219,7 +2063,7 @@
           <div class="principio-toggle">▼</div>
         </div>
         <div class="principio-body">
-          <div class="principio-aplicacao"><strong>PO na prática:</strong> Você é a ponte. Esteja disponível para o time todo dia — sem acesso ao PO, a equipe toma decisões sem contexto de negócio.</div>
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> Você é a ponte. Esteja disponível para o time todo dia sem acesso ao PO, a equipe toma decisões sem contexto de negócio.</div>
         </div>
       </div>
 
@@ -2230,7 +2074,7 @@
           <div class="principio-toggle">▼</div>
         </div>
         <div class="principio-body">
-          <div class="principio-aplicacao"><strong>PO na prática:</strong> Não sacrifique qualidade técnica por velocidade. Dívida técnica é dívida de produto — você vai pagar com juros em forma de bugs e lentidão.</div>
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> Não sacrifique qualidade técnica por velocidade. Dívida técnica é dívida de produto você vai pagar com juros em forma de bugs e lentidão.</div>
         </div>
       </div>
 
@@ -2263,14 +2107,14 @@
           <div class="principio-toggle">▼</div>
         </div>
         <div class="principio-body">
-          <div class="principio-aplicacao"><strong>PO na prática:</strong> Mudança de requisito é sinal de que você está aprendendo — não de que algo deu errado. Backlog é vivo, não contrato.</div>
+          <div class="principio-aplicacao"><strong>PO na prática:</strong> Mudança de requisito é sinal de que você está aprendendo não de que algo deu errado. Backlog é vivo, não contrato.</div>
         </div>
       </div>
 
       <div class="principio-item" onclick="togglePrincipio(this)">
         <div class="principio-header">
           <div class="principio-num">11</div>
-          <div class="principio-frase">Agilidade promove desenvolvimento sustentável — padrão constante de excelência técnica.</div>
+          <div class="principio-frase">Agilidade promove desenvolvimento sustentável padrão constante de excelência técnica.</div>
           <div class="principio-toggle">▼</div>
         </div>
         <div class="principio-body">
@@ -2284,7 +2128,7 @@
 <section class="section" id="destaque-diario">
   <div class="section-book-tag tag-special">⭐ Destaque PO</div>
   <h2 class="section-title">A Rotina Diária do PO que se Destaca</h2>
-  <p class="section-subtitle">O que o PO excelente faz todos os dias — síntese dos dois livros</p>
+  <p class="section-subtitle">O que o PO excelente faz todos os dias síntese dos dois livros</p>
   <div class="divider"></div>
 
   <div class="special-section">
@@ -2300,7 +2144,7 @@
       <div class="routine-step-num">2</div>
       <div class="routine-step-body">
         <h4>🤝 Daily Scrum (15 min)</h4>
-        <p>Participe da daily do time. Ouça impedimentos. Remova qualquer bloqueio de negócio que o time mencionar ainda naquele dia. Não use o tempo da daily para decisões de produto — apenas sincronização e desobstrução.</p>
+        <p>Participe da daily do time. Ouça impedimentos. Remova qualquer bloqueio de negócio que o time mencionar ainda naquele dia. Não use o tempo da daily para decisões de produto apenas sincronização e desobstrução.</p>
       </div>
     </div>
 
@@ -2308,7 +2152,7 @@
       <div class="routine-step-num">3</div>
       <div class="routine-step-body">
         <h4>🔍 Descoberta (2–3h)</h4>
-        <p>Trabalho de descoberta: entrevistas de clientes, análise de protótipos, refinamento de histórias, validação de hipóteses. Se não está fazendo isso diariamente, o backlog vai envelhecer. O PO gasta a maior parte do tempo aqui — não em reuniões.</p>
+        <p>Trabalho de descoberta: entrevistas de clientes, análise de protótipos, refinamento de histórias, validação de hipóteses. Se não está fazendo isso diariamente, o backlog vai envelhecer. O PO gasta a maior parte do tempo aqui não em reuniões.</p>
       </div>
     </div>
 
@@ -2324,7 +2168,7 @@
       <div class="routine-step-num">5</div>
       <div class="routine-step-body">
         <h4>💬 Stakeholders (30–60 min, rotativo)</h4>
-        <p>Reserve tempo para café/conversa com stakeholders-chave. Mantenha-os informados, colete restrições e valide direção. Faça isso de forma proativa — não espere que venham pedir. Construa confiança antes de precisar pedir algo.</p>
+        <p>Reserve tempo para café/conversa com stakeholders-chave. Mantenha-os informados, colete restrições e valide direção. Faça isso de forma proativa não espere que venham pedir. Construa confiança antes de precisar pedir algo.</p>
       </div>
     </div>
 
@@ -2340,7 +2184,7 @@
       <div class="routine-step-num">7</div>
       <div class="routine-step-body">
         <h4>📊 Semana: Entrevistas com Clientes (2–3h)</h4>
-        <p>Mínimo 2–3h por semana de interação direta com clientes/usuários reais. Use esse tempo para entrevistas, testes de usabilidade e testes de valor. Leve um engenheiro com você — a mágica acontece quando eles veem a dor do cliente em primeira mão.</p>
+        <p>Mínimo 2–3h por semana de interação direta com clientes/usuários reais. Use esse tempo para entrevistas, testes de usabilidade e testes de valor. Leve um engenheiro com você a mágica acontece quando eles veem a dor do cliente em primeira mão.</p>
       </div>
     </div>
   </div>
@@ -2349,14 +2193,14 @@
 <!-- ── ANTES DE CODAR ──────────────────────────── -->
 <section class="section" id="destaque-antes-codar">
   <div class="section-book-tag tag-special">⭐ Destaque PO</div>
-  <h2 class="section-title">Antes de Codar — O Checklist do PO</h2>
+  <h2 class="section-title">Antes de Codar O Checklist do PO</h2>
   <p class="section-subtitle">O que validar antes de qualquer item entrar no sprint de desenvolvimento</p>
   <div class="divider"></div>
 
   <div class="special-section">
     <div class="grid-2">
       <div>
-        <h3 style="color:#004D4D;font-family:'Playfair Display',serif;margin-bottom:16px">Validação de Negócio</h3>
+        <h3 style="color:var(--accent);font-family:var(--ff-body);margin-bottom:16px">Validação de Negócio</h3>
         <ul class="checklist">
           <li>Este item endereça um OKR do time atual?</li>
           <li>Qual é o resultado de negócio esperado e como vamos medir?</li>
@@ -2368,7 +2212,7 @@
         </ul>
       </div>
       <div>
-        <h3 style="color:#004D4D;font-family:'Playfair Display',serif;margin-bottom:16px">Validação de Solução</h3>
+        <h3 style="color:var(--accent);font-family:var(--ff-body);margin-bottom:16px">Validação de Solução</h3>
         <ul class="checklist">
           <li>Temos um protótipo (mesmo que de baixa fidelidade) validado com usuários?</li>
           <li>O teste de usabilidade mostrou que os usuários conseguem usar?</li>
@@ -2382,7 +2226,7 @@
     </div>
 
     <div style="margin-top:24px">
-      <h3 style="color:#004D4D;font-family:'Playfair Display',serif;margin-bottom:16px">Validação do Backlog Item (INVEST)</h3>
+      <h3 style="color:var(--accent);font-family:var(--ff-body);margin-bottom:16px">Validação do Backlog Item (INVEST)</h3>
       <div class="grid-2">
         <ul class="checklist">
           <li><strong>Independente:</strong> pode ser feito sem depender de outra história?</li>
@@ -2399,7 +2243,7 @@
 
     <div class="highlight-box" style="margin-top:24px">
       <p class="quote">"Se a primeira vez que seus engenheiros verem uma ideia for no planning do sprint, você falhou."</p>
-      <p class="quote-attr">— Marty Cagan, Inspirado, Descoberta de Produto</p>
+      <p class="quote-attr">  Marty Cagan, Inspirado, Descoberta de Produto</p>
     </div>
   </div>
 </section>
@@ -2407,100 +2251,100 @@
 <!-- ── 50 BOAS PRÁTICAS ───────────────────────── -->
 <section class="section" id="destaque-boas-praticas">
   <div class="section-book-tag tag-special">⭐ Destaque PO</div>
-  <h2 class="section-title">50 Boas Práticas — O PO de Excelência</h2>
+  <h2 class="section-title">50 Boas Práticas O PO de Excelência</h2>
   <p class="section-subtitle">Síntese dos dois livros em ações concretas para o dia a dia</p>
   <div class="divider"></div>
 
   <div class="special-section">
     <div class="grid-2">
       <div>
-        <h3 style="color:#004D4D;font-family:'Playfair Display',serif;margin-bottom:16px">🧠 Mentalidade</h3>
+        <h3 style="color:var(--accent);font-family:var(--ff-body);margin-bottom:16px">🧠 Mentalidade</h3>
         <ul class="practice-list" style="gap:12px">
-          <li><strong>1.</strong> Apaixone-se pelo problema, nunca pela solução — soluções mudam, problemas persistem</li>
-          <li><strong>2.</strong> Assuma que 50–75% das suas ideias não vão funcionar — essa é a base da descoberta</li>
-          <li><strong>3.</strong> Planejamento é útil; seguir cegamente o plano é burro — inspecione e adapte sempre</li>
-          <li><strong>4.</strong> Você é o CEO do produto — quando falha, é sua responsabilidade</li>
-          <li><strong>5.</strong> Evidências > Opiniões — sempre. Mude a conversa de opinião para dados</li>
+          <li><strong>1.</strong> Apaixone-se pelo problema, nunca pela solução soluções mudam, problemas persistem</li>
+          <li><strong>2.</strong> Assuma que 50–75% das suas ideias não vão funcionar essa é a base da descoberta</li>
+          <li><strong>3.</strong> Planejamento é útil; seguir cegamente o plano é burro inspecione e adapte sempre</li>
+          <li><strong>4.</strong> Você é o CEO do produto quando falha, é sua responsabilidade</li>
+          <li><strong>5.</strong> Evidências > Opiniões sempre. Mude a conversa de opinião para dados</li>
           <li><strong>6.</strong> Pense em resultados (outcomes), nunca em entregas (outputs)</li>
           <li><strong>7.</strong> Seja teimoso com a visão, flexível com os detalhes</li>
-          <li><strong>8.</strong> Procure sistemas ruins, não pessoas ruins — o ambiente determina o comportamento</li>
-          <li><strong>9.</strong> Felicidade do time é um indicador líder de performance — meça e cultive</li>
-          <li><strong>10.</strong> Mude ou morra — a inércia é inimiga mortal do produto</li>
+          <li><strong>8.</strong> Procure sistemas ruins, não pessoas ruins o ambiente determina o comportamento</li>
+          <li><strong>9.</strong> Felicidade do time é um indicador líder de performance meça e cultive</li>
+          <li><strong>10.</strong> Mude ou morra a inércia é inimiga mortal do produto</li>
         </ul>
       </div>
 
       <div>
-        <h3 style="color:#004D4D;font-family:'Playfair Display',serif;margin-bottom:16px">👥 Clientes</h3>
+        <h3 style="color:var(--accent);font-family:var(--ff-body);margin-bottom:16px">👥 Clientes</h3>
         <ul class="practice-list orange" style="gap:12px">
-          <li><strong>11.</strong> Entreviste clientes toda semana — mínimo 2–3h, sempre</li>
-          <li><strong>12.</strong> Leve engenheiros às entrevistas — a mágica acontece quando eles veem a dor</li>
-          <li><strong>13.</strong> Clientes não sabem o que é possível — não peça que definam a solução</li>
+          <li><strong>11.</strong> Entreviste clientes toda semana mínimo 2–3h, sempre</li>
+          <li><strong>12.</strong> Leve engenheiros às entrevistas a mágica acontece quando eles veem a dor</li>
+          <li><strong>13.</strong> Clientes não sabem o que é possível não peça que definam a solução</li>
           <li><strong>14.</strong> Para B2B: trabalhe para ter 6 clientes de referência antes de escalar vendas</li>
-          <li><strong>15.</strong> Observe o comportamento real, não o declarado — o que fazem importa mais que o que dizem</li>
-          <li><strong>16.</strong> Entenda o problema subjacente — não entregue a solução que pediram sem questionar</li>
-          <li><strong>17.</strong> Seja obcecado em clientes, não em concorrentes — clientes que saem é por falta de cuidado, não por concorrência</li>
-          <li><strong>18.</strong> Nunca delegue o aprendizado de clientes — você precisa ver em primeira mão</li>
+          <li><strong>15.</strong> Observe o comportamento real, não o declarado o que fazem importa mais que o que dizem</li>
+          <li><strong>16.</strong> Entenda o problema subjacente não entregue a solução que pediram sem questionar</li>
+          <li><strong>17.</strong> Seja obcecado em clientes, não em concorrentes clientes que saem é por falta de cuidado, não por concorrência</li>
+          <li><strong>18.</strong> Nunca delegue o aprendizado de clientes você precisa ver em primeira mão</li>
           <li><strong>19.</strong> Compartilhe os aprendizados de clientes generosamente com o time inteiro</li>
-          <li><strong>20.</strong> Teste demanda antes de construir — porta falsa, landing page, pesquisa</li>
+          <li><strong>20.</strong> Teste demanda antes de construir porta falsa, landing page, pesquisa</li>
         </ul>
       </div>
 
       <div>
-        <h3 style="color:#004D4D;font-family:'Playfair Display',serif;margin-bottom:16px">📋 Backlog e Priorização</h3>
+        <h3 style="color:var(--accent);font-family:var(--ff-body);margin-bottom:16px">📋 Backlog e Priorização</h3>
         <ul class="practice-list" style="gap:12px">
-          <li><strong>21.</strong> Priorize por valor + risco — os 20% mais valiosos e menos arriscados primeiro</li>
+          <li><strong>21.</strong> Priorize por valor + risco os 20% mais valiosos e menos arriscados primeiro</li>
           <li><strong>22.</strong> Mantenha o backlog sempre com 2–3 sprints de histórias prontas</li>
           <li><strong>23.</strong> Escreva histórias no formato: "Como [persona], quero [o quê] para [porquê]"</li>
           <li><strong>24.</strong> Aplique INVEST a cada história antes de colocar no sprint</li>
           <li><strong>25.</strong> Defina ACs testáveis antes de qualquer história entrar no sprint</li>
-          <li><strong>26.</strong> Use a regra 80/20: 80% do valor em 20% das features — entregue esses 20% primeiro</li>
-          <li><strong>27.</strong> Proteja o time de scope creep durante o sprint — nada entra após o planejamento</li>
-          <li><strong>28.</strong> "Feito" deve ser funcional e demonstrável — não 90% pronto</li>
-          <li><strong>29.</strong> Se tudo é prioridade, nada é prioridade — defina o mais importante com clareza</li>
+          <li><strong>26.</strong> Use a regra 80/20: 80% do valor em 20% das features entregue esses 20% primeiro</li>
+          <li><strong>27.</strong> Proteja o time de scope creep durante o sprint nada entra após o planejamento</li>
+          <li><strong>28.</strong> "Feito" deve ser funcional e demonstrável não 90% pronto</li>
+          <li><strong>29.</strong> Se tudo é prioridade, nada é prioridade defina o mais importante com clareza</li>
           <li><strong>30.</strong> Atualize prioridades a cada sprint baseado em novos aprendizados</li>
         </ul>
       </div>
 
       <div>
-        <h3 style="color:#004D4D;font-family:'Playfair Display',serif;margin-bottom:16px">🛠️ Descoberta e Prototipagem</h3>
+        <h3 style="color:var(--accent);font-family:var(--ff-body);margin-bottom:16px">🛠️ Descoberta e Prototipagem</h3>
         <ul class="practice-list orange" style="gap:12px">
-          <li><strong>31.</strong> Protótipos antes de código — sempre. Uma ordem de magnitude mais barato</li>
+          <li><strong>31.</strong> Protótipos antes de código sempre. Uma ordem de magnitude mais barato</li>
           <li><strong>32.</strong> Endereça 4 riscos antes de codar: valor, usabilidade, viabilidade técnica, viabilidade de negócio</li>
           <li><strong>33.</strong> Teste de usabilidade: deixe o usuário operar, fique quieto, observe</li>
-          <li><strong>34.</strong> Não meça valor com grupos focais — meça com comportamento real (dinheiro, tempo, acesso)</li>
-          <li><strong>35.</strong> Itere o protótipo entre sessões — não trave a versão durante o processo de teste</li>
+          <li><strong>34.</strong> Não meça valor com grupos focais meça com comportamento real (dinheiro, tempo, acesso)</li>
+          <li><strong>35.</strong> Itere o protótipo entre sessões não trave a versão durante o processo de teste</li>
           <li><strong>36.</strong> Sprint de descoberta: uma semana intensiva para resolver um problema crítico</li>
           <li><strong>37.</strong> Use técnica de "Porta Falsa" para testar demanda de features antes de construir</li>
-          <li><strong>38.</strong> Compartilhe aprendizados após cada sessão de teste — um e-mail rápido ao time é suficiente</li>
+          <li><strong>38.</strong> Compartilhe aprendizados após cada sessão de teste um e-mail rápido ao time é suficiente</li>
           <li><strong>39.</strong> Defina avaliação de oportunidade antes de qualquer descoberta: objetivo, KR, problema, mercado-alvo</li>
           <li><strong>40.</strong> Inclua consideração ética: devemos construir isso? Quais efeitos colaterais?</li>
         </ul>
       </div>
 
       <div>
-        <h3 style="color:#004D4D;font-family:'Playfair Display',serif;margin-bottom:16px">🤝 Time e Stakeholders</h3>
+        <h3 style="color:var(--accent);font-family:var(--ff-body);margin-bottom:16px">🤝 Time e Stakeholders</h3>
         <ul class="practice-list" style="gap:12px">
           <li><strong>41.</strong> PM + Designer + Engenheiro: trabalhem lado a lado, não sequencialmente</li>
-          <li><strong>42.</strong> Engenheiros na descoberta desde o início — eles são a melhor fonte de inovação</li>
-          <li><strong>43.</strong> Nunca diga ao engenheiro como fazer — diga o problema e deixe-o descobrir</li>
-          <li><strong>44.</strong> Reserve tempo 1:1 semanal com stakeholders-chave — não espere crise</li>
+          <li><strong>42.</strong> Engenheiros na descoberta desde o início eles são a melhor fonte de inovação</li>
+          <li><strong>43.</strong> Nunca diga ao engenheiro como fazer diga o problema e deixe-o descobrir</li>
+          <li><strong>44.</strong> Reserve tempo 1:1 semanal com stakeholders-chave não espere crise</li>
           <li><strong>45.</strong> Valide com stakeholders usando protótipos de alta fidelidade, não PowerPoint</li>
           <li><strong>46.</strong> Reuniões individuais > reunião em grupo com todos os stakeholders juntos</li>
-          <li><strong>47.</strong> Evangelize a visão constantemente — não existe comunicação excessiva de visão</li>
-          <li><strong>48.</strong> Transparência total: todos sabem no que todos trabalham — o quadro scrum é público</li>
-          <li><strong>49.</strong> Elimine heroísmo crônico — se precisa de herói a cada sprint, o planejamento falhou</li>
-          <li><strong>50.</strong> Demonstre o produto a cada sprint para stakeholders e clientes — mostre e aprenda</li>
+          <li><strong>47.</strong> Evangelize a visão constantemente não existe comunicação excessiva de visão</li>
+          <li><strong>48.</strong> Transparência total: todos sabem no que todos trabalham o quadro scrum é público</li>
+          <li><strong>49.</strong> Elimine heroísmo crônico se precisa de herói a cada sprint, o planejamento falhou</li>
+          <li><strong>50.</strong> Demonstre o produto a cada sprint para stakeholders e clientes mostre e aprenda</li>
         </ul>
       </div>
 
       <div>
-        <h3 style="color:#004D4D;font-family:'Playfair Display',serif;margin-bottom:16px">⚡ Velocidade e Melhoria</h3>
+        <h3 style="color:var(--accent);font-family:var(--ff-body);margin-bottom:16px">⚡ Velocidade e Melhoria</h3>
         <ul class="practice-list orange" style="gap:12px">
-          <li>Meça velocidade do time (pontos/sprint) e monitore a tendência — crescimento é saudável</li>
-          <li>Corrija bugs imediatamente — 3 semanas depois custa 24× mais</li>
-          <li>Não trabalhe demais: após 40h/semana a produtividade cai — proteja o ritmo sustentável</li>
-          <li>Use retrospectiva para escolher um kaizen por sprint — melhoria contínua e real</li>
-          <li>Meça a felicidade do time e correlacione com performance — felicidade prediz o futuro</li>
+          <li>Meça velocidade do time (pontos/sprint) e monitore a tendência crescimento é saudável</li>
+          <li>Corrija bugs imediatamente 3 semanas depois custa 24× mais</li>
+          <li>Não trabalhe demais: após 40h/semana a produtividade cai proteja o ritmo sustentável</li>
+          <li>Use retrospectiva para escolher um kaizen por sprint melhoria contínua e real</li>
+          <li>Meça a felicidade do time e correlacione com performance felicidade prediz o futuro</li>
         </ul>
       </div>
     </div>
@@ -2625,7 +2469,7 @@ Instruções:
 ${nivelInstr[nivel]}
 
 Regras obrigatórias:
-- O "para [porquê]" é a parte mais importante — revele a motivação real, não a ação
+- O "para [porquê]" é a parte mais importante revele a motivação real, não a ação
 - A história deve ser pequena o suficiente para caber em um sprint (Small do INVEST)
 - Use linguagem clara e específica, evite termos vagos como "melhorar" ou "facilitar"
 - Responda APENAS com o conteúdo solicitado, sem introduções ou explicações adicionais
@@ -2719,15 +2563,15 @@ Regras obrigatórias:
   }
 
   function renderInvest(items) {
-    const labels = ['I — Independente','N — Negociável','V — Valiosa','E — Estimável','S — Small','T — Testável'];
+    const labels = ['I Independente','N Negociável','V Valiosa','E Estimável','S Small','T Testável'];
     let html = '';
     items.slice(0, 6).forEach((item, i) => {
       const isOk = item.includes('✅') || item.toLowerCase().includes('sim') || !item.includes('⚠️');
       const cls = isOk ? 'invest-ok' : 'invest-warn';
       const icon = item.includes('⚠️') ? '⚠️' : '✅';
       const label = labels[i] || `Item ${i+1}`;
-      const desc = item.replace(/^[-•*IINVESTinvest\s:✅⚠️]+/, '').replace(label.split('—')[0].trim(),'').trim();
-      html += `<div class="invest-item ${cls}">${icon} <span><strong>${label.split('—')[1]?.trim() || label}</strong>${desc ? ' — '+desc : ''}</span></div>`;
+      const desc = item.replace(/^[-•*IINVESTinvest\s:✅⚠️]+/, '').replace(label.split(' ')[0].trim(),'').trim();
+      html += `<div class="invest-item ${cls}">${icon} <span><strong>${label.split(' ')[1]?.trim() || label}</strong>${desc ? ' '+desc : ''}</span></div>`;
     });
     return html;
   }
